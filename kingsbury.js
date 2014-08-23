@@ -7,7 +7,7 @@ kingsburyMod.run(function() {
 
 kingsburyMod.service('userService', function($log, $http, $q) {
 
-  var backendUrl = 'http://192.168.8.34:8080/yar-byte-me-booty-repo/backend.php';
+  var backendUrl = 'backend.php';
 
   this.GetUser = function(id) {
   
