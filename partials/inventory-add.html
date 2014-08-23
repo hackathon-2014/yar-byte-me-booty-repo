@@ -33,8 +33,18 @@
       <div class="media-body">
         <h4 class="media-heading">{{selected.title}}</h4>
         <p ng-show="selected.release_date">Released: <em>{{selected.release_date}}</em></p>
-        <button class="btn btn-sm btn-success" ng-click="add()">Add to My Movies</button>
-        <button class="btn btn-sm btn-default" ng-click="unselect()">Back to results</button>
+        <p>
+          <select ng-model="selectedMedium" required ng-options="option.id as option.label for option in mediumOptions">
+            <option value="">Select Medium</option>
+          </select>
+          <select ng-model="selectedCondition" required ng-options="option.id as option.label for option in conditionOptions">
+            <option value="">Select Condition</option>
+          </select>
+        </p>
+        <p>
+          <button class="btn btn-sm btn-success" ng-click="add()">Add to My Movies</button>
+          <button class="btn btn-sm btn-default" ng-click="unselect()">Back to results</button>
+        </p>
       </div>
     </div>
   </div>
