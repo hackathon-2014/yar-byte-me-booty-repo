@@ -64,18 +64,26 @@ h1, h2, h3, h4, h5, h6, p {
 .user.user-sub {
   font-size: 24px;
 }
+.user.user-text {
+  font-size: 20px;
+  margin: 0;
+}
 .user-sub-container {
   margin-top: 24px;
 }
 .movie-block {
   background-color: #222222;
-  padding: 12px;
+  padding: 12px 16px;
+  color: white;
   border-radius: 8px;
-  width: calc(96% / 3);
   text-align: center;
   vertical-align: top;
 }
 
 .movie-block.user {
   margin-top: 5px;
+}
+
+.movie-block i:not(:last-child) {
+  margin-right: 5px;
 }
