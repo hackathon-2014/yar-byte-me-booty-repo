@@ -110,6 +110,33 @@ kingsburyMod.service('inventoryService', function($log, $q, $http) {
     return deferred.promise;
   }
 
+  this.AddMovie = function(movie) {
+  
+    // // The Movie Object
+    // {
+      // info : JSON
+      // condition : STRING
+      // medium : STRING
+      // userId : INT
+    // }
+  
+    var deferred = $q.defer();
+
+    $http.post(kingsburyMod.backendUrl, {
+      'AddMovie': movie
+    }).then(function(response) {
+      if (response.data.AddMovie) {
+        deferred.resolve(response.data.AddMovie);
+      }
+      else {
+        deferred.reject('Failed to add movie');
+        $log.error('inventoryService (AddMovie): Failed to add movie', movie);
+      }
+    });
+
+    return deferred.promise;
+  }
+
 });
 
 kingsburyMod.controller('backendTests', function($scope, userService, inventoryService) {
@@ -127,7 +154,18 @@ kingsburyMod.controller('backendTests', function($scope, userService, inventoryS
       $scope.$safeApply();
     });
   }
+  
+  $scope.testMovie = {
+    info: '{"test":"asdf asdf"}',
+    userId: 1,
+    medium: 'VHS',
+    condition: 'Bad'
+  }
 
+  $scope.testAddMovie = function(movie) {
+    inventoryService.AddMovie(movie);
+  }
+  
 });
 
 kingsburyMod.controller('signUpController', function($scope, userService, $state, $rootScope) {
