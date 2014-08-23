@@ -42,5 +42,33 @@
 */
 
 body {
-    margin-top: 66px !important;
+    margin-top: 51px !important;
+}
+
+ul.movies-list {
+  background-color: whitesmoke;
+  list-style: none;
+  border-radius: 8px;
+  padding: 0;
+  color: white;
+}
+ul.movies-list p {
+  font-size: 20px;
+  line-height: 1em;
+}
+
+p.hero {
+  font-size: 32px;
+  text-decoration: underline;
+}
+
+ul.movies-list li {
+  width: 100%;
+  padding: 12px;
+  background-color: #000000;
+}
+
+ul.movies-list li img {
+  width: 100%;
+  border: 1px solid whitesmoke;
 }

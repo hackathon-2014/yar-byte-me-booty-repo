@@ -6,7 +6,7 @@ var bootyApp = angular.module('bootyApp', ['ngAnimate', 'ui.router', 'Scope.safe
 * CONFIG
 *************************************************/
 bootyApp.config(function($stateProvider, $urlRouterProvider) {
-  //$urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/home');
 
   $stateProvider.state('home', {
       templateUrl: 'partials/home.html',
