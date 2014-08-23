@@ -1,17 +1,42 @@
-<div ng-controller="EarlController">
+<div ng-controller="InventoryAddController">
   
   <p>
-    <input ng-model="title" ng-enter="imdbSearchByTitle(title);">
-    <button ng-click="imdbSearchByTitle(title);">Search</button>
+    <input ng-model="title" ng-enter="byTitle(title);" ng-disabled="isSearching">
+    <button ng-click="byTitle(title);" ng-disabled="isSearching">Search</button>
+    <button ng-click="cancel()" ng-show="isSearching">Cancel</button>
   </p>
 
-  <p class="alert alert-danger" ng-show="imdbSearchError">
-    {{imdbSearchError}}
-  </p>
-
-  <ul ng-show="imdbSearchResponse">
-    <li ng-repeat="movie in imdbSearchResponse.Search">
-    </li>
-  </ul>
+  <p class="alert alert-danger" ng-show="error">{{error}}</p>
+  <p class="alert alert-warning" ng-if="results.length == 0">No results found.</p>
+  <p ng-show="isSearching"><i class="fa fa-spin fa-spinner fa-2x"></i></p>
+  
+  <div ng-show="results" ng-hide="selected">
+    <div ng-repeat="result in results" class="media">
+      <div class="pull-left">
+        <img class="media-object" ng-src="{{result.poster_path}}" alt="" ng-show="result.poster_path">
+        <img class="media-object" ng-src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="result.poster_path">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{result.title}}</h4>
+        <p ng-show="result.release_date">Released: <em>{{result.release_date}}</em></p>
+        <button class="btn btn-sm btn-default" ng-click="select($index)">I have this movie</button>
+      </div>
+    </div>
+  </div>
+  
+  <div ng-show="selected">
+    <div class="media">
+      <div class="pull-left">
+        <img class="media-object" ng-src="{{selected.poster_path}}" alt="" ng-show="selected.poster_path">
+        <img class="media-object" ng-src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="selected.poster_path">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{selected.title}}</h4>
+        <p ng-show="selected.release_date">Released: <em>{{selected.release_date}}</em></p>
+        <button class="btn btn-sm btn-success" ng-click="add()">Add to My Movies</button>
+        <button class="btn btn-sm btn-default" ng-click="unselect()">Back to results</button>
+      </div>
+    </div>
+  </div>
   
 </div>
