@@ -45,6 +45,7 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 *************************************************/
 bootyApp.run(function($rootScope, $state) {
 
+  $rootScope.$state = $state;
 	
 });
 
