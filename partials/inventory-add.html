@@ -18,7 +18,7 @@
   <div ng-show="results" ng-hide="selected">
     <div ng-repeat="result in results" class="media">
       <div class="pull-left">
-        <img class="media-object" ng-src="{{result.poster_path}}" alt="" ng-show="result.poster_path">
+        <img class="media-object" ng-src="{{imgPrefix}}{{result.poster_path}}" alt="" ng-show="result.poster_path">
         <img class="media-object" ng-src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="result.poster_path">
       </div>
       <div class="media-body">
@@ -39,7 +39,7 @@
     
     <div class="media">
       <div class="pull-left">
-        <img class="media-object" ng-src="{{selected.poster_path}}" alt="" ng-show="selected.poster_path">
+        <img class="media-object" ng-src="{{imgPrefix}}{{selected.poster_path}}" alt="" ng-show="selected.poster_path">
         <img class="media-object" ng-src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="selected.poster_path">
       </div>
       <div class="media-body">

@@ -88,6 +88,8 @@ bootyApp.run(function($rootScope, $state) {
     localStorage.setItem('authUser', '');
     $state.go('home');
   }
+  
+  $rootScope.imgPrefix = 'https://image.tmdb.org/t/p/w92';
 
 });
 

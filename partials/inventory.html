@@ -1,5 +1,28 @@
 <div ng-controller="InventoryController">
-  <a ui-sref="user-inventory-add({ userId: currentUser.id })" class="btn btn-default">Add Inventory</a>
-  <p class="alert alert-success" ng-show="addedMovieTitle">Successfully added {{addedMovieTitle}} to My Movies</p>
+  
+  <p class="pull-right"><a ui-sref="user-inventory-add({ userId: currentUser.id })" class="btn btn-success btn-sm">Add Inventory</a></p>
+  
+  <h1>My Movies</h1>
+  
+  <div ng-hide="inventory"><i class="fa fa-spin fa-spinner fa-2x"></i></div>
+  
+  <div ng-show="inventory">
+    <div ng-repeat="movie in inventory" class="media">
+      <div class="pull-left">
+        <img class="media-object" ng-src="{{imgPrefix}}{{movie.info.poster_path}}" alt="" ng-show="movie.info.poster_path">
+        <img class="media-object" ng-src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="movie.info.poster_path">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{movie.info.title}}</h4>
+        <p>
+          <span ng-show="movie.info.release_date">Released: <em>{{movie.info.release_date}}</em><br /></span>
+          <span ng-show="movie.condition">Condition: {{movie.condition}}<br /></span>
+          <span ng-show="movie.medium">Medium: {{movie.medium}}</span>
+        </p>
+        <button class="btn btn-sm btn-default" ng-click="confirm($index)">Remove</button>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
