@@ -1,0 +1,40 @@
+/*
+ * ngRepeat triggers three animation events: enter, leave and move.
+ */
+ 
+/* .ng-enter,
+.ng-leave,
+.ng-move {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+} */
+
+/* ending enter and move styling
+   (this is what the element will animate from */
+	 
+/* .ng-enter, */
+/* .ng-move { opacity:0; } */
+
+/* ending enter and move styling
+   (this is what the element will animate towards */
+	 
+/* .ng-enter.ng-enter-active, */
+/* .ng-move.ng-move-active { opacity:1; } */
+
+/* starting leave animation */
+
+/* .ng-leave { opacity:1; } */
+
+/* ending leave animation */
+
+/* .ng-leave.ng-leave-active { opacity:0; } */
+
+.ng-enter {
+  -webkit-animation: fadeInLeft 0.5s;
+  animation: fadeInLeft 0.5s;
+}
+
+.ng-leave {
+  -webkit-animation: hinge 1s;
+  animation: hinge 1s;
+}
