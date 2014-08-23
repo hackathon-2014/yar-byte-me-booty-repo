@@ -136,6 +136,25 @@ kingsburyMod.service('inventoryService', function($log, $q, $http) {
 
     return deferred.promise;
   }
+  
+  this.Search = function(searchString) {
+   var deferred = $q.defer();
+
+    $http.post(kingsburyMod.backendUrl, {
+      'Search': searchString
+    }).then(function(response) {
+      if (response.data.hasOwnProperty('Search')) {
+        deferred.resolve(response.data.Search);
+      }
+      else {
+        deferred.reject('Failed to search');
+        $log.error('inventoryService (Search): Failed to search', searchString);
+      }
+    });
+
+    return deferred.promise;
+
+  }
 
 });
 
@@ -218,10 +237,8 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
       $scope.errors.general = 'Failed to add user.';
       $scope.$safeApply();
     });
-   
-    
-  }
 
+  }
 
 });
 
@@ -262,6 +279,26 @@ kingsburyMod.controller('loginController', function($scope, userService, $state,
     });
     
   }
-
-
 });
+
+kingsburyMod.controller('searchController', function($scope, $state, inventoryService, $rootScope) {
+
+  $scope.errors = {};
+  
+  $scope.searchInventory = function(searchString) {
+    inventoryService.Search(searchString).then(
+      function(movies) {
+        $rootScope.invSearchResults = movies;
+        $state.go('search')
+      },
+      function() {
+        $scope.errors.noMovies = true;
+      }
+    );
+  };
+});
+
+
+
+
+
