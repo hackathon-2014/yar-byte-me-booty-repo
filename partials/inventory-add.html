@@ -1,1 +1,17 @@
-Add Inventory
+<div ng-controller="EarlController">
+  
+  <p>
+    <input ng-model="title" ng-enter="imdbSearchByTitle(title);">
+    <button ng-click="imdbSearchByTitle(title);">Search</button>
+  </p>
+
+  <p class="alert alert-danger" ng-show="imdbSearchError">
+    {{imdbSearchError}}
+  </p>
+
+  <ul ng-show="imdbSearchResponse">
+    <li ng-repeat="movie in imdbSearchResponse.Search">
+    </li>
+  </ul>
+  
+</div>
