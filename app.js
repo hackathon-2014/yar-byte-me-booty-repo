@@ -5,8 +5,11 @@ var bootyApp = angular.module('bootyApp', ['ngAnimate', 'ui.router', 'Scope.safe
 /************************************************
 * CONFIG
 *************************************************/
-bootyApp.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home');
+bootyApp.config(function($stateProvider, $urlRouterProvider, $animateProvider) {
+
+  $animateProvider.classNameFilter(/^((?!(fa-spin)).)*$/);
+
+  //$urlRouterProvider.otherwise('/home');
 
   $stateProvider.state('home', {
       templateUrl: 'partials/home.html',
@@ -15,7 +18,8 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('login', {
       templateUrl: 'partials/login.html',
-      url: '/login'
+      url: '/login',
+      controller: 'loginController'
   });
 
   $stateProvider.state('user', {
@@ -47,13 +51,13 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'partials/request.html',
     url: '/request'
   });
-  
+
   $stateProvider.state('signUp', {
     templateUrl: 'partials/signUp.html',
     url: '/signUp',
     controller: 'signUpController'
   });
-	
+
 });
 
 /************************************************
@@ -61,8 +65,28 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 *************************************************/
 bootyApp.run(function($rootScope, $state) {
 
+  var savedUser = false;
+
+  // fromJson fails bad if it gets a weird string
+  try {
+    savedUser = angular.fromJson(localStorage.getItem('authUser'));
+  }
+  catch(e) {}
+
+  if (savedUser) {
+    console.log('saved user found');
+    $rootScope.authUser = savedUser;
+    $state.go('user', {'userId':savedUser.id});
+  }
+
   $rootScope.$state = $state;
-	
+
+  $rootScope.logout = function() {
+    $rootScope.authUser = {};
+    localStorage.setItem('authUser', '');
+    $state.go('home');
+  }
+
 });
 
 bootyApp.controller('exampleController', function($scope, $http) {
