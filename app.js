@@ -5,22 +5,38 @@ var bootyApp = angular.module('bootyApp', ['ngAnimate', 'ui.router', 'Scope.safe
 /************************************************
 * CONFIG
 *************************************************/
-bootyApp.config(function($stateProvider) {
-	
-	$stateProvider.state('asdf', {
-		template: '<h3>the ASDF template</h3><div class="alert alert-success" ui-view></div>',
-		url: '/asdf'
+bootyApp.config(function($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise('/home');
+
+	$stateProvider.state('home', {
+		templateUrl: 'partials/home.html',
+		url: '/home'
 	});
 	
-	$stateProvider.state('asdf.blah', {
-		template: '<h4>ummm i\'m blah</h4>',
-		url: '/blah'
+	$stateProvider.state('login', {
+		templateUrl: 'partials/login.html',
+		url: '/login'
 	});
 	
-	$stateProvider.state('wert', {
-		template: '<h3>the WERT template</h3>',
-		url: '/wwwwwwww'
+	$stateProvider.state('account', {
+		templateUrl: 'partials/account.html',
+		url: '/account'
 	});
+
+  $stateProvider.state('inventory', {
+    templateUrl: 'partials/inventory.html',
+    url: '/inventory'
+  });
+
+  $stateProvider.state('search', {
+    templateUrl: 'partials/search.html',
+    url: '/search'
+  });
+
+  $stateProvider.state('request', {
+    templateUrl: 'partials/request.html',
+    url: '/request'
+  });
 	
 });
 

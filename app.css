@@ -38,3 +38,7 @@
   -webkit-animation: hinge 1s;
   animation: hinge 1s;
 }
+
+body {
+    margin-top: 66px !important;
+}
