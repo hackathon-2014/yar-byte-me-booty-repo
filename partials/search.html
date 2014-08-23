@@ -1,1 +1,34 @@
-search
+
+  <h2>Search for a Vintage Movie!</h2>
+
+  <form role="form">
+
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Movie Title" ng-model="searchString">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="submit" ng-click="searchInventory(searchString)">Find It!</button>
+        </span>
+      </div>
+    </div>
+
+  </form>
+  
+  <div ng-repeat="result in invSearchResults" class="media" style="color:white">
+    <div class="pull-left">
+      <img class="media-object" ng-src="https://image.tmdb.org/t/p/w92{{result.info.poster_path}}" alt="" ng-show="result.info.poster_path">
+      <img class="media-object" src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="result.info.poster_path">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{result.info.title}}</h4>
+      <p>Released: <em>{{result.info.release_date}}</em></p>
+      <p>User: <em>{{result.user_id}}</em></p>
+      <p>Condition: <em>{{result.condition}}</em></p>
+      <p>Medium: <em>{{result.medium}}</em></p>
+    </div>
+  </div>
+  
+  
+<!--   <ul style="color:white">
+    <li ng-repeat="movie in invSearchResults">{{movie}}</li>
+  </ul> -->

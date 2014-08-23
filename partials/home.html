@@ -1,27 +1,19 @@
-<div ng-controller="homeCtrl">
-  <div style="padding: 20px;">
-    <p class="hero">Search by title</p>
 
-    <input type="text" ng-model="searchTitle" />
-    <button type="submit" ng-click="omdbSearchByTitle(searchTitle)">Search</button>
-  </div>
+  <h2>Search for a Vintage Movie!</h2>
 
-  <ul class="movies-list" style="margin-top: 30px;">
-    <li ng-repeat="movies in titlesFound">
-      <!--<div>-->
-        <!--<p class="hero">{{movies.title}}</p>-->
-      <!--</div>-->
-      <!--<div class="row">-->
-        <!--<img class="" ng-src="{{movies.icon}}" />-->
-      <!--<div class="col-xs-10">-->
-        <!--<p>{{movies.description}}</p>-->
-      <!--<div class="footer">-->
-          <!--<p>Condition: <i ng-class="{'fa-check': movies.condition == 'good'}" class="fa"></i></p>-->
-          <!--<p>Type: movies.type</i></p>-->
-          <!--<p>Available: {{checkInventoryCount(movies.title)}}</p>-->
-        <!--</div>-->
-      <!--</div>-->
-    </li>
-  </ul>
+  <form role="form">
 
-</div>
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Movie Title" ng-model="searchString">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="submit" ng-click="searchInventory(searchString)">Find It!</button>
+        </span>
+      </div>
+    </div>
+
+  </form>
+  
+  <button class="btn btn-default" ng-click="searchInventory('{')">... or List Everything Available!</button>
+
+

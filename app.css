@@ -46,42 +46,36 @@ body {
   background-color: #313131;
 }
 
+
 h1, h2, h3, h4, h5, h6, p {
   color: white;
 }
 
 .user-container {
-  display: inline-block;
+  margin: 10px 0;
 }
 
 .user {
-  font-size: 24px;
+  font-size: 30px;
+  text-align: center;
   line-height: 1em;
-  padding: 0;
-
 }
 
-.user-age {
-  font-size: 20px;
-  margin: 0;
+.user.user-sub {
+  font-size: 24px;
 }
-.user-location {
-  font-size: 20px;
-  margin: 0;
+.user-sub-container {
+  margin-top: 24px;
 }
-
-.user-icon {
-  width: 100px;
-  height: 100px;
+.movie-block {
+  background-color: #222222;
+  padding: 12px;
+  border-radius: 8px;
+  width: calc(96% / 3);
+  text-align: center;
   vertical-align: top;
 }
 
-.user-titles {
-  color: white;
-  margin: 10px 0 0 0;
-  padding-left: 15px;
-}
-
-.user-titles h3 {
-  margin: 0;
+.movie-block.user {
+  margin-top: 5px;
 }
