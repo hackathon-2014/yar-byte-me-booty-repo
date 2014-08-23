@@ -73,7 +73,6 @@ kingsburyMod.service('userService', function($log, $http, $q) {
       'AddUser': {'email':email, 'pass':pass}
     }).then(function(response) {
       if (response.data.AddUser) {
-        // Returns user ID
         deferred.resolve(response.data.AddUser);
       }
       else {
@@ -129,7 +128,7 @@ kingsburyMod.controller('backendTests', function($scope, userService, inventoryS
 
 });
 
-kingsburyMod.controller('signUpController', function($scope, userService, $state) {
+kingsburyMod.controller('signUpController', function($scope, userService, $state, $rootScope) {
 
   $scope.errors = {};
 
@@ -158,11 +157,11 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
     
       if (!result) {
      
-        userService.AddUser(user.email, user.pass).then(function(id) {
+        userService.AddUser(user.email, user.pass).then(function(newUser) {
           $scope.processing = false;
-          $rootScope.authUser = user;
-          localStorage.setItem('authUser', angular.toJson(user));
-          $state.go('user', {'userId': id});
+          $rootScope.authUser = newUser;
+          localStorage.setItem('authUser', angular.toJson(newUser));
+          $state.go('user', {'userId': newUser.id});
         }, function(reason) {
           $scope.processing = false;
           $scope.errors.general = 'Failed to add user.';

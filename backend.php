@@ -81,12 +81,36 @@ if (isset($payloadDecoded['AddUser'])) {
 
   $newUser = $payloadDecoded['AddUser'];
   
-  $stmt = $db->prepare('INSERT INTO users (email, pass) VALUES (:email, :pass)');
+  $newUser['first'] = 'John';
+  $newUser['last'] = 'Doe';
+  $newUser['street'] = '123 Drive Ln';
+  $newUser['city'] = 'Charleston';
+  $newUser['state'] = 'SC';
+  $newUser['zip'] = '29407';
+  
+  $stmt = $db->prepare('INSERT INTO users (email, pass, first, last, street, city, state, zip) VALUES (:email, :pass, :first, :last, :street, :city, :state, :zip)');
   $stmt->bindValue(':email', $newUser['email'], SQLITE3_TEXT);
   $stmt->bindValue(':pass', $newUser['pass'], SQLITE3_TEXT);
+  $stmt->bindValue(':first', $newUser['first'], SQLITE3_TEXT);
+  $stmt->bindValue(':last', $newUser['last'], SQLITE3_TEXT);
+  $stmt->bindValue(':street', $newUser['street'], SQLITE3_TEXT);
+  $stmt->bindValue(':city', $newUser['city'], SQLITE3_TEXT);
+  $stmt->bindValue(':state', $newUser['state'], SQLITE3_TEXT);
+  $stmt->bindValue(':zip', $newUser['zip'], SQLITE3_TEXT);
   $r = $stmt->execute();
-  
-  $response['AddUser'] = $r === FALSE ? false : $db->lastInsertRowID();
+
+  if ($r !== FALSE) {
+    $stmt->close();
+    $userId = $db->lastInsertRowID();
+    $stmt = $db->prepare('SELECT * FROM users WHERE id=:id');
+    $stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
+    $rr = $stmt->execute();
+    
+    $response['AddUser'] = $rr->fetchArray();
+  }
+  else {
+    $response['AddUser'] = false;
+  }
 }
 
 if (isset($payloadDecoded['GetUserMovies'])) {
