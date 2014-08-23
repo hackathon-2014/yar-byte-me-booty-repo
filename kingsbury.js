@@ -149,6 +149,7 @@ kingsburyMod.controller('loginController', function($scope, userService, $state,
     userService.AuthUser(user.email, user.pass).then(function(user) {
       $scope.processing = false;
       $rootScope.authUser = user;
+      localStorage.setItem('authUser', angular.toJson(user));
       $state.go('user', {'userId': user.id});
     }, function(reason) {
       $scope.errors.general = 'Failed to authenticate.';

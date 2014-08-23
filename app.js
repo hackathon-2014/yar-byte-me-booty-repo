@@ -62,8 +62,27 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 *************************************************/
 bootyApp.run(function($rootScope, $state) {
 
+  var savedUser = false;
+  
+  try {
+    savedUser = angular.fromJson(localStorage.getItem('authUser'));
+  }
+  catch(e) {}
+   
+  if (savedUser) {
+    console.log('saved user found');
+    $rootScope.authUser = savedUser;
+    $state.go('user', {'userId':savedUser.id});
+  }
+
   $rootScope.$state = $state;
 	
+  $rootScope.logout = function() {
+    $rootScope.authUser = {};
+    localStorage.setItem('authUser', '');
+    $state.go('home');
+  }
+  
 });
 
 bootyApp.controller('exampleController', function($scope, $http) {
