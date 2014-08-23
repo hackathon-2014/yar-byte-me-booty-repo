@@ -145,6 +145,25 @@ if (isset($payloadDecoded['AddMovie'])) {
   $response['AddMovie'] = $r === FALSE ? false : $db->lastInsertRowID();
 }
 
+if (isset($payloadDecoded['Search'])) {
+
+  $searchString = $payloadDecoded['Search'];
+  $searchString = '%' . $searchString  . '%';
+  
+  $stmt = $db->prepare('SELECT * FROM movies WHERE info LIKE :searchString');
+  $stmt->bindValue(':searchString', $searchString, SQLITE3_TEXT);
+  $r = $stmt->execute();
+  
+  $movies = array();
+  
+  while ($row = $r->fetchArray(SQLITE3_ASSOC)) {
+   $row['info'] = json_decode($row['info'], true);
+   $movies[] = $row;
+  }
+  
+  $response['Search'] = count($movies) > 0 ? $movies : false;
+}
+
 //-----------------------------------------------
 // RESPONSE AND EXIT
 //-----------------------------------------------

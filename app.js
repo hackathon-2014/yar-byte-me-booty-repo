@@ -13,7 +13,14 @@ bootyApp.config(function($stateProvider, $urlRouterProvider, $animateProvider) {
 
   $stateProvider.state('home', {
       templateUrl: 'partials/home.html',
-      url: '/home'
+      url: '/home',
+      controller: 'searchController'
+  });
+
+  $stateProvider.state('search', {
+      templateUrl: 'partials/search.html',
+      url: '/search',
+      controller: 'searchController'
   });
 
   $stateProvider.state('login', {
@@ -41,11 +48,6 @@ bootyApp.config(function($stateProvider, $urlRouterProvider, $animateProvider) {
 //		templateUrl: 'partials/inventory-delete.html',
 //		url: '/delete'
 //	});
-
-  $stateProvider.state('search', {
-    templateUrl: 'partials/search.html',
-    url: '/search'
-  });
 
   $stateProvider.state('request', {
     templateUrl: 'partials/request.html',
