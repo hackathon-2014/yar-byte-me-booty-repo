@@ -27,6 +27,11 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'partials/inventory.html',
     url: '/inventory'
   });
+  
+  $stateProvider.state('inventory-add', {
+    templateUrl: 'partials/inventory-add.html',
+    url: '/user/inventory/add'
+  });
 
   $stateProvider.state('search', {
     templateUrl: 'partials/search.html',
