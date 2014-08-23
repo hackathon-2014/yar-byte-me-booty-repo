@@ -1,21 +1,40 @@
 <div ng-controller="userCtrl" style="padding: 20px 0 0 0;">
-  <img class="img-rounded" ng-src="assets/avatar-icon.jpg" style="margin: 0 calc(50% - 75px); width: 150px" />
+  <img class="img-rounded" ng-src="http://www.gravatar.com/avatar/{{user.icon}}"
+       style="margin: 0 calc(50% - 75px); width: 150px"/>
+
   <div class="user-container">
     <p class="user" style="margin-top: 20px;">{{user.first}} {{user.last}}</p>
+
     <p class="user user-sub">{{user.city}}, {{user.state}} {{user.zip}}</p>
-    <div class="user-sub-container">
-      <div class="movie-block" style="color: white; display: inline-block">
-        <div class="user">{{movies.length}}</div>
-        <div>Movies</div>
+
+    <div class="row">
+      <div class="col-xs-12 user-sub-container" style="background: #262626; padding: 20px;">
+        <p class="user user-text">Favorite Movie: {{user.favMovie}}</p>
       </div>
-      <div class="movie-block" style="color: white; display: inline-block; margin: 0 auto;">
-        <div class="user">{{user.followers}}</div>
-        <div>Followers</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 user-sub-container">
+        <div class="movie-block btn" ng-click="goTo('user-inventory')">
+          <div class="user">{{movies.length}}</div>
+          <div>Movies</div>
+        </div>
       </div>
-      <div class="movie-block" style="color: white; display: inline-block">
-        <div class="user">{{user.rating}}</div>
-        <div>User Rating</div>
+      <!--<div class="movie-block" style="color: white; display: inline-block; margin: 0 auto;">-->
+      <!--<div class="user">{{user.followers}}</div>-->
+      <!--<div>Followers</div>-->
+      <!--</div>-->
+      <div class="col-xs-8 user-sub-container" style="color: white;">
+        <div class="movie-block" style="text-align: left;">
+          <i class="fa fa-2x fa-star"></i>
+          <i class="fa fa-2x fa-star"></i>
+          <i class="fa fa-2x fa-star"></i>
+          <i class="fa fa-2x fa-star"></i>
+          <i class="fa fa-2x fa-star-o"></i>
+
+          <div style="margin-top: 4px;">User Rating</div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 </div>
