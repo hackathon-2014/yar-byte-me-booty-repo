@@ -1,1 +1,16 @@
-login
+<form role="form">
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email" placeholder="Email Address" ng-model="newUser.email">
+    <div class="alert alert-danger" ng-if="errors.email">{{errors.email}}</div>
+  </div>
+  <div class="form-group">
+    <label for="pass">Password</label>
+    <input type="password" class="form-control" id="pass" placeholder="Password" ng-model="newUser.pass">
+    <div class="alert alert-danger" ng-if="errors.pass">{{errors.pass}}</div>
+  </div>
+  <button type="submit" class="btn btn-default" ng-click="Login(newUser)">
+    Submit <span class="fa fa-cog fa-spin" ng-if="processing"></span>
+  </button>
+  <div class="alert alert-danger" ng-if="errors.general">{{errors.general}}
+</form>
