@@ -10,6 +10,23 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
   
   // Change this to test how the interface handles delays
   var artificalDelay = 0;
+  
+  $scope.mediumOptions = [
+    { text: 'BetaMax', value: 'betamax' },
+    { text: 'Laserdisc', value: 'laserdisc' },
+    { text: 'DVD', value: 'dvd' },
+    { text: 'VHS', value: 'vhs' }
+  ];
+  
+  $scope.conditionOptions = [
+    { label: 'Mint', id: 'mint' },
+    { label: 'Good', id: 'good' },
+    { label: 'Eh', id: 'eh' },
+    { label: 'Bad', id: 'bad' },
+    { label: 'Horrible', id: 'horrible' }
+  ];
+  
+  //$scope.mediumOptions = ['Mint', 'Good', 'Eh', 'Bad', 'Horrible'];
 
   $scope.byTitle = function(title) {
     
@@ -24,6 +41,7 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
 
         $scope.results = data.results;
         for (var i = 0, j = $scope.results.length; i < j; i++) {
+          console.log(angular.toJson($scope.results[i]));
           if ($scope.results[i].poster_path) {
             $scope.results[i].poster_path = 'https://image.tmdb.org/t/p/w92' + $scope.results[i].poster_path;
           }
