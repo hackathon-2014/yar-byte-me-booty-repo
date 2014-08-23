@@ -29,6 +29,7 @@
 
 /* .ng-leave.ng-leave-active { opacity:0; } */
 
+/*
 .ng-enter {
   -webkit-animation: fadeInLeft 0.5s;
   animation: fadeInLeft 0.5s;
@@ -38,6 +39,7 @@
   -webkit-animation: hinge 1s;
   animation: hinge 1s;
 }
+*/
 
 body {
     margin-top: 66px !important;
