@@ -91,19 +91,19 @@ kingsburyMod.service('userService', function($log, $http, $q) {
 
 kingsburyMod.service('inventoryService', function($log, $q, $http) {
 
-  this.GetUserInventory = function(user) {
+  this.GetUserInventory = function(userId) {
   
    var deferred = $q.defer();
  
     $http.post(kingsburyMod.backendUrl, {
-      'GetUserMovies': {'userId':user.id}
+      'GetUserMovies': {'userId':userId}
     }).then(function(response) {
-      if (response.data.GetUserMovies) {
+      if (response.data.hasOwnProperty('GetUserMovies')) {
         deferred.resolve(response.data.GetUserMovies);
       }
       else {
         deferred.reject('Failed to get movies');
-        $log.error('inventoryService (GetUserMovies): Failed to get movies', user);
+        $log.error('inventoryService (GetUserMovies): Failed to get movies', userId);
       }
     });
     
