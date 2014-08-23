@@ -51,7 +51,7 @@ p {
 }
 
 .user-container {
-  padding: 10px;
+  display: inline-block;
 }
 
 .user {
@@ -71,5 +71,7 @@ p {
 }
 
 .user-icon {
-  width: 100%;
+  width: 100px;
+  height: 100px;
+  vertical-align: top;
 }
