@@ -7,6 +7,28 @@ earlMod.service('tmdbService', function($http) {
 });
 
 earlMod.controller('InventoryController', function($scope, $stateParams, inventoryService) {
+  inventoryService.GetUserInventory($scope.authUser).then(function(data) {
+    console.log(data);
+    $scope.inventory = data;
+  }, function(error) {
+    $scope.error = 'Error loading inventory';
+  }).finally(function() {
+    $scope.$safeApply();
+  });
+  
+  $scope.confirm = function(index) {
+    bootbox.confirm('Are you sure?', function(confirmed) {
+      if (confirmed) {
+        /*
+        inventoryService.RemoveMovie(
+          $scope.authUser,
+          $scope.inventory[index].id
+        );
+        */
+        alert('TODO: Implement InventoryService.RemoveMovie()');
+      }
+    });
+  }
   
 });
 
@@ -40,23 +62,12 @@ earlMod.controller('InventoryAddController', function($scope, $http, $state, tmd
     $scope.requestId = setTimeout(function() {
       
       tmdbService.byTitle(title).success(function(data) {
-
         $scope.results = data.results;
-        for (var i = 0, j = $scope.results.length; i < j; i++) {
-          if ($scope.results[i].poster_path) {
-            $scope.results[i].poster_path = 'https://image.tmdb.org/t/p/w92' + $scope.results[i].poster_path;
-          }
-        }
-        
-      }).error(function() {
-        
-        $scope.error = 'Error searching.';
-        
-      }).finally(function() {
-        
+      }).error(function() {        
+        $scope.error = 'Error searching.';        
+      }).finally(function() {        
           $scope.isSearching = false;
-          $scope.$safeApply();
-        
+          $scope.$safeApply();        
       });
       
     }, artificalDelay);
