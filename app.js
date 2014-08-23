@@ -37,6 +37,11 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'partials/request.html',
     url: '/request'
   });
+  
+  $stateProvider.state('signUp', {
+    templateUrl: 'partials/signUp.html',
+    url: '/signUp'
+  });
 	
 });
 
