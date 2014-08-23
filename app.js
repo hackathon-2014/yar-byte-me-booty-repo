@@ -6,7 +6,7 @@ var bootyApp = angular.module('bootyApp', ['ngAnimate', 'ui.router', 'Scope.safe
 * CONFIG
 *************************************************/
 bootyApp.config(function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/home');
+	//$urlRouterProvider.otherwise('/home');
 
 	$stateProvider.state('home', {
 		templateUrl: 'partials/home.html',
@@ -20,23 +20,28 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 	
 	$stateProvider.state('user', {
 		templateUrl: 'partials/user.html',
-		url: '/user/:userId'
+		url: '/user/:userId',
+    resolve: {
+      userId: ['$stateParams', function($stateParams){
+        return $stateParams.userId;
+      }]
+    }
 	});
 
 	$stateProvider.state('user.inventory', {
 		templateUrl: 'partials/inventory.html',
-		url: '/user/:userId/inventory'
+		url: '/inventory'
 	});
 
 	$stateProvider.state('user.inventory.add', {
 		templateUrl: 'partials/inventory-add.html',
-		url: '/user/:userId/inventory/add'
+		url: '/add'
 	});
-
-	$stateProvider.state('user.inventory.delete', {
-		templateUrl: 'partials/inventory-delete.html',
-		url: '/user/:userId/inventory/delete'
-	});
+//
+//	$stateProvider.state('user.inventory.delete', {
+//		templateUrl: 'partials/inventory-delete.html',
+//		url: '/delete'
+//	});
 
   $stateProvider.state('search', {
     templateUrl: 'partials/search.html',
