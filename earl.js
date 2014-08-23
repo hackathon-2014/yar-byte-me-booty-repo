@@ -6,31 +6,46 @@ earlMod.service('tmdbService', function($http) {
   } 
 });
 
-earlMod.controller('InventoryAddController', function($scope, $http, tmdbService) {
+earlMod.controller('InventoryAddController', function($scope, $http, tmdbService, inventoryService) {
   
-  var error = function() {
-    $scope.error = 'Error searching.';
-  };
-  
-  var success = function(r) {
-    console.log(r.data.results);
-    $scope.results = r.data.results;
-    for (var i = 0, j = $scope.results.length; i < j; i++) {
-      if ($scope.results[i].poster_path) {
-        $scope.results[i].poster_path = 'https://image.tmdb.org/t/p/w92' + $scope.results[i].poster_path;
-      }
-    }
-  };
+  // Change this to test how the interface handles delays
+  var artificalDelay = 0;
 
   $scope.byTitle = function(title) {
+    
+    // Clear previous results and errors
     $scope.isSearching = true;
+    $scope.results = $scope.error = '';
+    
+    // Really not necessary, just helped introduce a artifical delay
     $scope.requestId = setTimeout(function() {
-      $scope.results = $scope.error = '';
-      tmdbService.byTitle(title).then(success, error).finally(function() {
-        $scope.isSearching = false;
-        $scope.$safeApply();
+      
+      tmdbService.byTitle(title).success(function(data) {
+
+        $scope.results = data.results;
+        for (var i = 0, j = $scope.results.length; i < j; i++) {
+          if ($scope.results[i].poster_path) {
+            $scope.results[i].poster_path = 'https://image.tmdb.org/t/p/w92' + $scope.results[i].poster_path;
+          }
+        }
+        
+      }).error(function() {
+        
+        $scope.error = 'Error searching.';
+        
+      }).finally(function() {
+        
+          $scope.isSearching = false;
+          $scope.$safeApply();
+        
       });
-    }, 0);
+      
+    }, artificalDelay);
+  }
+  
+  $scope.cancel = function() {
+    clearTimeout($scope.requestId);
+    $scope.isSearching = false;
   }
   
   $scope.select = function(index) {
@@ -41,9 +56,8 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
     $scope.selected = ''; 
   }
   
-  $scope.cancel = function() {
-    clearTimeout($scope.requestId);
-    $scope.isSearching = false;
+  $scope.add = function() {
+    inventoryService.add($scope.selected.id, angular.toJson($scope.selected));
   }
   
 });
