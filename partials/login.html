@@ -10,7 +10,7 @@
     <div class="alert alert-danger" ng-if="errors.pass">{{errors.pass}}</div>
   </div>
   <button type="submit" class="btn btn-default" ng-click="Login(newUser)">
-    Submit <span class="fa fa-cog fa-spin" ng-show="processing"></span>
+    Submit <span class="fa fa-cog fa-spin" ng-if="processing"></span>
   </button>
   <div class="alert alert-danger" ng-if="errors.general">{{errors.general}}
 </form>

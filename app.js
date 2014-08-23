@@ -5,7 +5,10 @@ var bootyApp = angular.module('bootyApp', ['ngAnimate', 'ui.router', 'Scope.safe
 /************************************************
 * CONFIG
 *************************************************/
-bootyApp.config(function($stateProvider, $urlRouterProvider) {
+bootyApp.config(function($stateProvider, $urlRouterProvider, $animateProvider) {
+
+  $animateProvider.classNameFilter(/^((?!(fa-spin)).)*$/);
+
   //$urlRouterProvider.otherwise('/home');
 
   $stateProvider.state('home', {
@@ -64,6 +67,7 @@ bootyApp.run(function($rootScope, $state) {
 
   var savedUser = false;
   
+  // fromJson fails bad if it gets a weird string
   try {
     savedUser = angular.fromJson(localStorage.getItem('authUser'));
   }

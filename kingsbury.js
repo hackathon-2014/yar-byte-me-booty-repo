@@ -102,7 +102,7 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
     if (!user.pass) {
       $scope.errors.pass = 'Please enter a password.';
     }
-    if ($scope.errors.length > 0) {
+    if ($scope.errors.email || $scope.errors.pass ) {
      return false;
     }
     
@@ -112,7 +112,8 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
       $scope.processing = false;
       $state.go('user', {'userId': id});
     }, function(reason) {
-      $scope.errors.pass = 'Failed to add user.';
+      $scope.processing = false;
+      $scope.errors.general = 'Failed to add user.';
       $scope.$safeApply();
     });
     
@@ -140,7 +141,7 @@ kingsburyMod.controller('loginController', function($scope, userService, $state,
     if (!user.pass) {
       $scope.errors.pass = 'Please enter a password.';
     }
-    if ($scope.errors.length > 0) {
+    if ($scope.errors.email || $scope.errors.pass ) {
      return false;
     }
     
@@ -152,6 +153,7 @@ kingsburyMod.controller('loginController', function($scope, userService, $state,
       localStorage.setItem('authUser', angular.toJson(user));
       $state.go('user', {'userId': user.id});
     }, function(reason) {
+      $scope.processing = false;
       $scope.errors.general = 'Failed to authenticate.';
       $scope.$safeApply();
     });
