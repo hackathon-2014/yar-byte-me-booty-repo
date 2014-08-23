@@ -18,9 +18,9 @@
       <input ng-model="title">
       <button ng-click="imdbSearchByTitle(title);">Search</button>
       
-      <div class="alert alert-error" ng-show="imdbSearchError">{{imdbSearchError}}</div>
+      <div class="alert alert-danger" ng-show="imdbSearchError" ng-model="imdbSearchError">{{imdbSearchError}}</div>
       
-      <ul ng-show="imdbSearchResponse">
+      <ul ng-show="imdbSearchResponse" ng-model="imdbSearchResponse">
         <li ng-repeat="(key, value) in imdbSearchResponse">
           {{key}}: {{value}}
         </li>

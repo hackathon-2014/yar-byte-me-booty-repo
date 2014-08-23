@@ -11,16 +11,16 @@ earlMod.factory('imdbSearch', function($http) {
 });
 
 earlMod.controller('EarlController', function($scope, $http, imdbSearch) {
+  
   $scope.imdbSearchByTitle = function(title) {
     imdbSearch.byTitle(title).success(function(data) {
-      $scope.imdbSearchResults = data;
-      $scope.imdbSearchError = 'TEST';
+      $scope.imdbSearchResponse = data;
     }).error(function() {
       $scope.imdbSearchError = 'Error searching';
     });
   }
+  
 });
 
 earlMod.run(function($rootScope) {
-	
 });
