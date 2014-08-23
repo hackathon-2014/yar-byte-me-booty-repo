@@ -50,7 +50,7 @@ if (isset($payloadDecoded['GetUser'])) {
   $stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
   $r = $stmt->execute();
   
-  $response['GetUser'] = $r->fetchArray();
+  $response['GetUser'] = $r->fetchArray(SQLITE3_ASSOC);
 }
 
 if (isset($payloadDecoded['CheckEmail'])) {
@@ -60,7 +60,7 @@ if (isset($payloadDecoded['CheckEmail'])) {
   $stmt = $db->prepare('SELECT * FROM users WHERE email=:email');
   $stmt->bindValue(':email', $email, SQLITE3_TEXT);
   $r = $stmt->execute();
-  $array = $r->fetchArray();
+  $array = $r->fetchArray(SQLITE3_ASSOC);
   
   $response['CheckEmail'] = $array === FALSE ? false : true;
 }
@@ -74,7 +74,7 @@ if (isset($payloadDecoded['AuthUser'])) {
   $stmt->bindValue(':pass', $authUser['pass'], SQLITE3_TEXT);
   $r = $stmt->execute();
   
-  $response['AuthUser'] = $r->fetchArray();
+  $response['AuthUser'] = $r->fetchArray(SQLITE3_ASSOC);
 }
 
 if (isset($payloadDecoded['AddUser'])) {
@@ -106,7 +106,7 @@ if (isset($payloadDecoded['AddUser'])) {
     $stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
     $rr = $stmt->execute();
     
-    $response['AddUser'] = $rr->fetchArray();
+    $response['AddUser'] = $rr->fetchArray(SQLITE3_ASSOC);
   }
   else {
     $response['AddUser'] = false;
@@ -125,6 +125,7 @@ if (isset($payloadDecoded['GetUserMovies'])) {
   
   while ($row = $r->fetchArray(SQLITE3_ASSOC)) {
    $row['info'] = json_decode($row['info'], true);
+   $row['user'] = GetUser($row['user_id']);
    $movies[] = $row;
   }
   
@@ -158,11 +159,23 @@ if (isset($payloadDecoded['Search'])) {
   
   while ($row = $r->fetchArray(SQLITE3_ASSOC)) {
    $row['info'] = json_decode($row['info'], true);
+   $row['user'] = GetUser($row['user_id']);
    $movies[] = $row;
   }
   
   $response['Search'] = count($movies) > 0 ? $movies : false;
 }
+
+function GetUser($id) {
+  global $db;
+  
+  $stmt = $db->prepare('SELECT * FROM users WHERE id=:id');
+  $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+  $r = $stmt->execute();
+
+  return $r->fetchArray(SQLITE3_ASSOC);
+}
+
 
 //-----------------------------------------------
 // RESPONSE AND EXIT
