@@ -18,20 +18,25 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 		url: '/login'
 	});
 	
-	$stateProvider.state('account', {
-		templateUrl: 'partials/account.html',
-		url: '/account'
+	$stateProvider.state('user', {
+		templateUrl: 'partials/user.html',
+		url: '/user/:userId'
 	});
 
-  $stateProvider.state('inventory', {
-    templateUrl: 'partials/inventory.html',
-    url: '/inventory'
-  });
-  
-  $stateProvider.state('inventory-add', {
-    templateUrl: 'partials/inventory-add.html',
-    url: '/user/inventory/add'
-  });
+	$stateProvider.state('user.inventory', {
+		templateUrl: 'partials/inventory.html',
+		url: '/user/:userId/inventory'
+	});
+
+	$stateProvider.state('user.inventory.add', {
+		templateUrl: 'partials/inventory-add.html',
+		url: '/user/:userId/inventory/add'
+	});
+
+	$stateProvider.state('user.inventory.delete', {
+		templateUrl: 'partials/inventory-delete.html',
+		url: '/user/:userId/inventory/delete'
+	});
 
   $stateProvider.state('search', {
     templateUrl: 'partials/search.html',
