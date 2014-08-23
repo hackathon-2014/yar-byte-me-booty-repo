@@ -11,13 +11,6 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
   // Change this to test how the interface handles delays
   var artificalDelay = 0;
   
-  $scope.mediumOptions = [
-    { text: 'BetaMax', value: 'betamax' },
-    { text: 'Laserdisc', value: 'laserdisc' },
-    { text: 'DVD', value: 'dvd' },
-    { text: 'VHS', value: 'vhs' }
-  ];
-  
   $scope.conditionOptions = [
     { label: 'Mint', id: 'mint' },
     { label: 'Good', id: 'good' },
@@ -26,7 +19,12 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
     { label: 'Horrible', id: 'horrible' }
   ];
   
-  //$scope.mediumOptions = ['Mint', 'Good', 'Eh', 'Bad', 'Horrible'];
+  $scope.mediumOptions = [
+    { label: 'BetaMax', id: 'betamax' },
+    { label: 'Laserdisc', id: 'laserdisc' },
+    { label: 'DVD', id: 'dvd' },
+    { label: 'VHS', id: 'vhs' }
+  ];
 
   $scope.byTitle = function(title) {
     
@@ -74,8 +72,15 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
     $scope.selected = ''; 
   }
   
-  $scope.add = function() {
-    inventoryService.add($scope.selected.id, angular.toJson($scope.selected));
+  $scope.add = function(condition, medium) {
+    $scope.addError = '';
+    if (!condition) {
+      $scope.addError = 'Condition is required';
+    } else if (!medium) {
+      $scope.addError = 'Medium is required'; 
+    } else {
+      inventoryService.add($scope.selected.id, angular.toJson($scope.selected));
+    }
   }
   
 });
