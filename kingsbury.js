@@ -7,11 +7,13 @@ kingsburyMod.run(function() {
 
 kingsburyMod.service('userService', function($log, $http, $q) {
 
+  var backendUrl = 'http://192.168.8.34:8080/yar-byte-me-booty-repo/backend.php';
+
   this.GetUser = function(id) {
   
     var deferred = $q.defer();
     
-    $http.post('backend.php', {
+    $http.post(backendUrl, {
       'GetUser': id
     }).then(function(response) {
       if (response.data.id) {
@@ -26,11 +28,52 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     return deferred.promise;
   }
 
+<<<<<<< HEAD
+  this.CheckEmail = function(email) {
+  
+    var deferred = $q.defer();
+    
+    $http.post(backendUrl, {
+      'CheckEmail': email
+    }).then(function(response) {
+      if (response.data.hasOwnProperty('CheckEmail')) {
+        deferred.resolve(response.data.CheckEmail);
+      }
+      else {
+        deferred.reject('Didn\'t get expected response');
+        $log.error('userService (CheckEmail): Didn\'t get expected response');
+      }
+    });
+    
+    return deferred.promise;
+  }
+
+  this.AuthUser = function(email, pass) {
+  
+    var deferred = $q.defer();
+    
+    $http.post(backendUrl, {
+      'AuthUser': {'email':email, 'pass':pass}
+    }).then(function(response) {
+      if (response.data.AuthUser) {
+        deferred.resolve(response.data.AuthUser);
+      }
+      else {
+        deferred.reject('Failed to authenticate user');
+        $log.error('userService (AuthUser): Failed to authenticate user', email, pass);
+      }
+    });
+    
+    return deferred.promise;
+  }
+
+=======
+>>>>>>> origin/master
   this.AddUser = function(email, pass) {
     
     var deferred = $q.defer();
  
-    $http.post('backend.php', {
+    $http.post(backendUrl, {
       'AddUser': {'email':email, 'pass':pass}
     }).then(function(response) {
       if (response.data.AddUser) {
@@ -44,6 +87,26 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     });
     
     return deferred.promise;
+  }
+  
+  this.GetUserMovies = function(userId) {
+  
+    var deferred = $q.defer();
+ 
+    $http.post(backendUrl, {
+      'userId': userId
+    }).then(function(response) {
+      if (response.data.GetUserMovies) {
+        deferred.resolve(response.data.GetUserMovies);
+      }
+      else {
+        deferred.reject('Failed to get movies');
+        $log.error('userService (GetUserMovies): Failed to get movies', userId);
+      }
+    });
+    
+    return deferred.promise;
+
   }
 
 });

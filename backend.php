@@ -45,7 +45,7 @@ if (isset($payloadDecoded['GetUser'])) {
   $stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
   $r = $stmt->execute();
   
-  $response['GetUser'] = $r->fetchArray();
+  $response['GetUser'] = $r->fetchArray(SQLITE3_ASSOC);
 }
 
 if (isset($payloadDecoded['AddUser'])) {
@@ -58,6 +58,23 @@ if (isset($payloadDecoded['AddUser'])) {
   $r = $stmt->execute();
   
   $response['AddUser'] = $r === FALSE ? false : $db->lastInsertRowID();
+}
+
+if (isset($payloadDecoded['GetUserMovies'])) {
+
+  $userId = $payloadDecoded['GetUserMovies'];
+  
+  $stmt = $db->prepare('SEELCT * FROM movies WHERE user_id =:userId');
+  $stmt->bindValue(':userId', $userId['userId'], SQLITE3_INTEGER);
+  $r = $stmt->execute();
+  
+  $movies = array();
+  
+  while ($row = $r->fetchArray(SQLITE3_ASSOC)) {
+    $movies[] = $row;
+  }
+  
+  $response['GetUserMovies'] = count($movies) > 0 ? $movies : false;
 }
 
 //-----------------------------------------------
