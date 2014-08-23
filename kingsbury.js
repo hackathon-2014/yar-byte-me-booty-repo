@@ -47,3 +47,10 @@ kingsburyMod.controller('backendTests', function($scope, userService) {
 
 
 });
+
+kingsburyMod.controller('signUpController', function($scope, userService) {
+
+
+
+
+});
