@@ -16,15 +16,18 @@
   
   <div ng-repeat="result in invSearchResults" class="media" style="color:white">
     <div class="pull-left">
-      <img class="media-object" ng-src="https://image.tmdb.org/t/p/w92{{result.info.poster_path}}" alt="" ng-show="result.info.poster_path">
-      <img class="media-object" src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="result.info.poster_path">
+      <img style="width: 100px" class="media-object" ng-src="https://image.tmdb.org/t/p/w92{{result.info.poster_path}}" alt="" ng-show="result.info.poster_path">
+      <img style="width: 100px" class="media-object" src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="result.info.poster_path">
     </div>
     <div class="media-body">
       <h4 class="media-heading">{{result.info.title}}</h4>
       <p>Released: <em>{{result.info.release_date}}</em></p>
-      <p>User: <em>{{result.user_id}}</em></p>
+      <p><img ng-src="http://www.gravatar.com/avatar/asdfasdfasdfasdf" style="width: 40px;" /> <span ng-click="goTo('user')" style="font-size: 20px; vertical-align: middle">David Kingsbury</span></p>
       <p>Condition: <em>{{result.condition}}</em></p>
       <p>Medium: <em>{{result.medium}}</em></p>
+    </div>
+    <div class="">
+      <button class="btn btn-primary btn-request-ship" ng-click="requestShip()">Request Ship</button><button class="btn btn-primary btn-request-meetup" ng-click="requestMeetup()">Request Meetup</button>
     </div>
   </div>
   

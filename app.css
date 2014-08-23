@@ -91,3 +91,13 @@ label {
 .movie-block i:not(:last-child) {
   margin-right: 5px;
 }
+
+.btn-request-ship {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-request-meetup {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
