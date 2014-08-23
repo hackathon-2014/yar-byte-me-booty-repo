@@ -17,3 +17,23 @@ robinsMod.controller('homeCtrl', function($scope){
   };
 
 });
+
+robinsMod.controller('userCtrl', function($scope){
+  $scope.cUser = {
+    name: 'David Robins',
+    age: 25,
+    location: 'Charleston, SC',
+    inventory: [{
+      title: 'Jurassic Park',
+      icon: 'assets/sample-movie-poster.jpg'
+    }],
+    checkout: [{
+      title: 'Jurassic Park 2',
+      icon: 'assets/sample-movie-poster.jpg'
+    }],
+    requests: [{
+      title: 'Jurassic Park 3',
+      icon: 'assets/sample-movie-poster.jpg'
+    }]
+  }
+});
