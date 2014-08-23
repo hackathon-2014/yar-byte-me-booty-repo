@@ -1,14 +1,19 @@
 <div ng-controller="InventoryAddController">
+
+  <h2>Add To My Movies</h2>
   
-  <p>
-    <input ng-model="title" ng-enter="byTitle(title);" ng-disabled="isSearching">
-    <button ng-click="byTitle(title);" ng-disabled="isSearching">Search</button>
-    <button ng-click="cancel()" ng-show="isSearching">Cancel</button>
-  </p>
+  <div class="form-inline">
+    <div class="form-group">
+      <input class="form-control" ng-model="title" ng-enter="byTitle(title);" placeholder="Search By Title">      
+      <button class="btn btn-default" ng-click="byTitle(title);">Search</button>
+    </div>
+  </div>
 
   <p class="alert alert-danger" ng-show="error">{{error}}</p>
   <p class="alert alert-warning" ng-if="results.length == 0">No results found.</p>
   <p ng-show="isSearching"><i class="fa fa-spin fa-spinner fa-2x"></i></p>
+  
+  <p>&nbsp;</p>
   
   <div ng-show="results" ng-hide="selected">
     <div ng-repeat="result in results" class="media">
@@ -25,6 +30,13 @@
   </div>
   
   <div ng-show="selected">
+    
+    <p class="alert alert-danger" ng-show="addError">{{addError}}</p>
+    <p class="alert alert-success" ng-show="addSuccess">
+      Successfully added to My Movies.<br />
+      <a ui-sref="user-inventory" class="btn btn-default btn-sm">Return to My Movies</a>        
+    </p>
+    
     <div class="media">
       <div class="pull-left">
         <img class="media-object" ng-src="{{selected.poster_path}}" alt="" ng-show="selected.poster_path">
@@ -33,16 +45,23 @@
       <div class="media-body">
         <h4 class="media-heading">{{selected.title}}</h4>
         <p ng-show="selected.release_date">Released: <em>{{selected.release_date}}</em></p>
-        <p>
-          <select ng-model="selectedMedium" required ng-options="option.id as option.label for option in mediumOptions">
-            <option value="">Select Medium</option>
-          </select>
-          <select ng-model="selectedCondition" required ng-options="option.id as option.label for option in conditionOptions">
-            <option value="">Select Condition</option>
-          </select>
+        <p ng-hide="addSuccess">
+          <div class="form-inline">
+            <div class="form-group">
+              <select ng-model="selectedCondition" ng-options="option.id as option.label for option in conditionOptions" class="form-control">
+                <option value="">Select Condition</option>
+              </select>
+              <select ng-model="selectedMedium" ng-options="option.id as option.label for option in mediumOptions" class="form-control">
+                <option value="">Select Medium</option>
+              </select>
+            </div>
+          </div>
+        </p>
+        <p ng-show="addSuccess">
+          {{selectedCondition}} | {{selectedMedium}}
         </p>
         <p>
-          <button class="btn btn-sm btn-success" ng-click="add()">Add to My Movies</button>
+          <button class="btn btn-sm btn-success" ng-click="add(selectedCondition, selectedMedium)" ng-disabled="addSuccess">Add to My Movies</button>
           <button class="btn btn-sm btn-default" ng-click="unselect()">Back to results</button>
         </p>
       </div>

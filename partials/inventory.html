@@ -1,6 +1,5 @@
-inventory
+<div ng-controller="InventoryController">
+  <a ui-sref="user-inventory-add({ userId: currentUser.id })" class="btn btn-default">Add Inventory</a>
+  <p class="alert alert-success" ng-show="addedMovieTitle">Successfully added {{addedMovieTitle}} to My Movies</p>
+</div>
 
-<a ui-sref="user-inventory-add({ userId: currentUser.id })" class="btn btn-default">Add Inventory</a>
-
-<!--Inventory Add View-->
-<div ui-view></div>
