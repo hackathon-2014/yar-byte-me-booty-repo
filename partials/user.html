@@ -1,13 +1,17 @@
-<div ng-controller="userCtrl">
+<div ng-controller="userCtrl" style="padding: 20px 0 0 0;">
   <div class="row">
-    <div class="col-xs-2">
-      <img class="user-icon img-rounded" src="{{cUser.icon}}" />
+    <div class="col-xs-3">
+      <img class="user-icon img-rounded" ng-src="assets/avatar-icon.jpg" />
     </div>
-    <div class="col-xs-10">
+    <div class="col-xs-8">
       <div class="user-container">
-        <p class="user">{{cUser.name}}</p>
-        <p class="user-age">Age: {{cUser.age}}</p>
-        <p class="user-location">Location: {{cUser.location}}</p>
+        <p ng-if="editNameMode == 'name'" class="user">{{user.first}} {{user.last}} <a ng-if="authUser.id == user.id"><i class="fa fa-gear"></i></a></p>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="user-location">Location: {{user.street}}, {{user.city}}, {{user.state}} {{user.zip}}</p>
       </div>
     </div>
   </div>

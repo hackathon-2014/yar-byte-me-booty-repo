@@ -18,23 +18,16 @@ robinsMod.controller('homeCtrl', function($scope){
 
 });
 
-robinsMod.controller('userCtrl', function($scope){
-  $scope.cUser = {
-    name: 'David Robins',
-    age: 25,
-    icon: 'assets/avatar-icon.jpg',
-    location: 'Charleston, SC',
-    inventory: [{
-      title: 'Jurassic Park',
-      icon: 'assets/sample-movie-poster.jpg'
-    }],
-    checkout: [{
-      title: 'Jurassic Park 2',
-      icon: 'assets/sample-movie-poster.jpg'
-    }],
-    requests: [{
-      title: 'Jurassic Park 3',
-      icon: 'assets/sample-movie-poster.jpg'
-    }]
-  }
+robinsMod.controller('userCtrl', function($scope, userService, $stateParams){
+
+  $scope.user = undefined;
+
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    userService.GetUser($stateParams.userId).then(function(user){
+      $scope.user = user;
+      $scope.$safeApply();
+    });
+  });
+
+
 });
