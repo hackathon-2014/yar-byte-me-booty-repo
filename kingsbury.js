@@ -7,7 +7,6 @@ kingsburyMod.run(function() {
 
 kingsburyMod.service('userService', function($log, $http, $q) {
 
-
   this.GetUser = function(id) {
   
     var deferred = $q.defer();
@@ -28,9 +27,7 @@ kingsburyMod.service('userService', function($log, $http, $q) {
   }
 
   this.AddUser = function(email, pass) {
-  
-    console.log("asdf");
-  
+    
     var deferred = $q.defer();
  
     $http.post('backend.php', {
@@ -65,7 +62,6 @@ kingsburyMod.controller('backendTests', function($scope, userService) {
   
   }
 
-
 });
 
 kingsburyMod.controller('signUpController', function($scope, userService, $state) {
@@ -95,7 +91,7 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
    
     userService.AddUser(user.email, user.pass).then(function(id) {
       $scope.processing = false;
-      $state.go('user', {'id': id});
+      $state.go('user', {'userId': id});
     }, function(reason) {
       $scope.errors.pass = 'Failed to add user.';
       $scope.$safeApply();
