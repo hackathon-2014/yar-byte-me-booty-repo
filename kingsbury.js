@@ -1,10 +1,6 @@
 var kingsburyMod = angular.module('kingsburyMod', ['bootyApp']);
 
-kingsburyMod.run(function(userService) {
-
-  userService.GetUser(1).then(function(user) {
-    console.log(user);
-  });
+kingsburyMod.run(function() {
 
 });
 
@@ -37,4 +33,17 @@ kingsburyMod.service('userService', function($log, $http, $q) {
 
 
 kingsburyMod.service('inventoryService', function($log) {
+});
+
+kingsburyMod.controller('backendTests', function($scope, userService) {
+
+  $scope.findUser = function(id) {
+    userService.GetUser(1).then(function(user) {
+      $scope.foundUser = user;
+      $scope.$safeApply();
+    });
+  
+  }
+
+
 });
