@@ -26,6 +26,25 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     return deferred.promise;
   }
 
+  this.CheckEmail = function(email) {
+  
+    var deferred = $q.defer();
+    
+    $http.post('backend.php', {
+      'CheckEmail': email
+    }).then(function(response) {
+      if (response.data.hasOwnProperty('CheckEmail')) {
+        deferred.resolve(response.data.CheckEmail);
+      }
+      else {
+        deferred.reject('Didn\'t get expected response');
+        $log.error('userService (CheckEmail): Didn\'t get expected response');
+      }
+    });
+    
+    return deferred.promise;
+  }
+
   this.AuthUser = function(email, pass) {
   
     var deferred = $q.defer();
@@ -107,15 +126,31 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
     }
     
     $scope.processing = true;
-   
-    userService.AddUser(user.email, user.pass).then(function(id) {
-      $scope.processing = false;
-      $state.go('user', {'userId': id});
-    }, function(reason) {
+    
+    userService.CheckEmail(user.email).then(function(result) {
+    
+      if (!result) {
+     
+        userService.AddUser(user.email, user.pass).then(function(id) {
+          $scope.processing = false;
+          $state.go('user', {'userId': id});
+        }, function(reason) {
+          $scope.processing = false;
+          $scope.errors.general = 'Failed to add user.';
+          $scope.$safeApply();
+        });
+      }
+      else {
+        $scope.processing = false;
+        $scope.errors.general = 'There is already an account with this email';
+      }
+      
+   }, function(reason) {
       $scope.processing = false;
       $scope.errors.general = 'Failed to add user.';
       $scope.$safeApply();
     });
+   
     
   }
 
