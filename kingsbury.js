@@ -4,16 +4,15 @@ kingsburyMod.run(function() {
 
 });
 
+kingsburyMod.backendUrl = 'backend.php';
 
 kingsburyMod.service('userService', function($log, $http, $q) {
-
-  var backendUrl = 'backend.php';
 
   this.GetUser = function(id) {
   
     var deferred = $q.defer();
     
-    $http.post(backendUrl, {
+    $http.post(kingsburyMod.backendUrl, {
       'GetUser': id
     }).then(function(response) {
       if (response.data.GetUser) {
@@ -32,7 +31,7 @@ kingsburyMod.service('userService', function($log, $http, $q) {
   
     var deferred = $q.defer();
     
-    $http.post(backendUrl, {
+    $http.post(kingsburyMod.backendUrl, {
       'CheckEmail': email
     }).then(function(response) {
       if (response.data.hasOwnProperty('CheckEmail')) {
@@ -51,7 +50,7 @@ kingsburyMod.service('userService', function($log, $http, $q) {
   
     var deferred = $q.defer();
     
-    $http.post(backendUrl, {
+    $http.post(kingsburyMod.backendUrl, {
       'AuthUser': {'email':email, 'pass':pass}
     }).then(function(response) {
       if (response.data.AuthUser) {
@@ -70,7 +69,7 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     
     var deferred = $q.defer();
  
-    $http.post(backendUrl, {
+    $http.post(kingsburyMod.backendUrl, {
       'AddUser': {'email':email, 'pass':pass}
     }).then(function(response) {
       if (response.data.AddUser) {
@@ -89,17 +88,43 @@ kingsburyMod.service('userService', function($log, $http, $q) {
 });
 
 
-kingsburyMod.service('inventoryService', function($log) {
+kingsburyMod.service('inventoryService', function($log, $q, $http) {
+
+  this.GetUserInventory = function(user) {
+  
+   var deferred = $q.defer();
+ 
+    $http.post(kingsburyMod.backendUrl, {
+      'GetUserMovies': {'userId':user.id}
+    }).then(function(response) {
+      if (response.data.GetUserMovies) {
+        deferred.resolve(response.data.GetUserMovies);
+      }
+      else {
+        deferred.reject('Failed to get movies');
+        $log.error('inventoryService (GetUserMovies): Failed to get movies', user);
+      }
+    });
+    
+    return deferred.promise;
+  }
+
 });
 
-kingsburyMod.controller('backendTests', function($scope, userService) {
+kingsburyMod.controller('backendTests', function($scope, userService, inventoryService) {
 
   $scope.findUser = function(id) {
     userService.GetUser(1).then(function(user) {
       $scope.foundUser = user;
       $scope.$safeApply();
     });
+  }
   
+  $scope.UserMovies = function(user) {
+    inventoryService.GetUserInventory(user).then(function(movies) {
+      $scope.movies = movies;
+      $scope.$safeApply();
+    });
   }
 
 });
@@ -135,6 +160,8 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
      
         userService.AddUser(user.email, user.pass).then(function(id) {
           $scope.processing = false;
+          $rootScope.authUser = user;
+          localStorage.setItem('authUser', angular.toJson(user));
           $state.go('user', {'userId': id});
         }, function(reason) {
           $scope.processing = false;

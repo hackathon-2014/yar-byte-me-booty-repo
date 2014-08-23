@@ -93,17 +93,32 @@ if (isset($payloadDecoded['GetUserMovies'])) {
 
   $userId = $payloadDecoded['GetUserMovies'];
   
-  $stmt = $db->prepare('SEELCT * FROM movies WHERE user_id =:userId');
+  $stmt = $db->prepare('SELECT * FROM movies WHERE user_id =:userId');
   $stmt->bindValue(':userId', $userId['userId'], SQLITE3_INTEGER);
   $r = $stmt->execute();
   
   $movies = array();
   
   while ($row = $r->fetchArray(SQLITE3_ASSOC)) {
-    $movies[] = $row;
+   $row['info'] = json_decode($row['info'], true);
+   $movies[] = $row;
   }
   
   $response['GetUserMovies'] = count($movies) > 0 ? $movies : false;
+}
+
+if (isset($payloadDecoded['AddMovies'])) {
+
+  $addMovie = $payloadDecoded['AddMovies'];
+  
+  $stmt = $db->prepare('INSERT INTO movies (info, medium, condition, user_id) VALUES (:info, :medium, :condition, :user_id)');
+  $stmt->bindValue(':info', $addMovie['info'], SQLITE3_TEXT);
+  $stmt->bindValue(':medium', $addMovie['medium'], SQLITE3_TEXT);
+  $stmt->bindValue(':condition', $addMovie['condition'], SQLITE3_TEXT);
+  $stmt->bindValue(':userId', $addMovie['userId'], SQLITE3_INTEGER);
+  $r = $stmt->execute();
+  
+  $response['AddMovies'] = $r === FALSE ? false : $db->lastInsertRowID();
 }
 
 //-----------------------------------------------
