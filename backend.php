@@ -37,15 +37,27 @@ $response = [];
 // METHODS
 //-----------------------------------------------
 
-if (isset($payloadDecoded['getuser'])) {
+if (isset($payloadDecoded['GetUser'])) {
 
-  $userId = $payloadDecoded['getuser'];
+  $userId = $payloadDecoded['GetUser'];
   
   $stmt = $db->prepare('SELECT * FROM users WHERE id=:id');
   $stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
   $r = $stmt->execute();
   
-  $response['getUser'] = $r->fetchArray();
+  $response['GetUser'] = $r->fetchArray();
+}
+
+if (isset($payloadDecoded['AddUser'])) {
+
+  $newUser = $payloadDecoded['AddUser'];
+  
+  $stmt = $db->prepare('INSERT INTO users (email, pass) VALUES (:email, :pass)');
+  $stmt->bindValue(':email', $newUser['email'], SQLITE3_TEXT);
+  $stmt->bindValue(':pass', $newUser['pass'], SQLITE3_TEXT);
+  $r = $stmt->execute();
+  
+  $response['AddUser'] = $r === FALSE ? false : $db->lastInsertRowID();
 }
 
 //-----------------------------------------------
