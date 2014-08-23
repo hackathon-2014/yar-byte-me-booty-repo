@@ -14,7 +14,7 @@
 
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-      <a class="navbar-brand" ui-sref="home">APP NAME</a>
+      <a class="navbar-brand" href="#">V.H.Yes - Vintage Movie Sharing</a>
       <button class="navbar-toggle" data-toggle="collapse" data-target=".nav-header-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -22,20 +22,23 @@
       </button>
       <div class="collapse navbar-collapse nav-header-collapse">
         <ul class="nav navbar-nav navbar-right">
+          <li ng-show="authUser.id" class="navbar-text">Hi, {{authUser.first}}!</li>
           <li ng-class="{'active': $state.includes('home')}"><a ui-sref="home">Home</a></li>
-          <li ng-class="{'active': $state.includes('login')}"><a ui-sref="login">Login</a></li>
-          <li ng-class="{'active': $state.includes('signUp')}"><a ui-sref="signUp">Sign Up</a></li>
-          <li ng-class="{'active': $state.includes('account')}"><a ui-sref="account">Account</a></li>
-          <li ng-class="{'active': $state.includes('user-inventory')}"><a ui-sref="user-inventory">My Movies</a></li>
-          <li ng-class="{'active': $state.includes('search')}"><a ui-sref="search">Search</a></li>
-          <li ng-class="{'active': $state.includes('request')}"><a ui-sref="request">Request</a></li>
-          <li><a href="" ng-click="logout()">Logout</a></li>
+          <li ng-show="authUser.id" ng-class="{'active': $state.includes('search')}"><a ui-sref="search">Search</a></li>
+          <li ng-hide="authUser.id" ng-class="{'active': $state.includes('signUp')}"><a ui-sref="signUp">Sign Up</a></li>
+          <li ng-hide="authUser.id" ng-class="{'active': $state.includes('login')}"><a ui-sref="login">Login</a></li>
+          <li ng-show="authUser.id" ng-class="{'active': $state.includes('user')}"><a ui-sref="user({userId:authUser.id})">Profile</a></li>
+          <li ng-show="authUser.id" ng-class="{'active': $state.includes('user-inventory')}"><a ui-sref="user-inventory({userId:authUser.id})">My Movies</a></li>
+          <li ng-show="authUser.id"><a href="" ng-click="logout()">Logout</a></li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="container"><div ui-view></div></div>
+  <div class="container">
+    <div ui-view></div>
+  </div>
+   
 <!-- 
   <div ng-controller="backendTests">
     <h2>Backend Tests</h2>
@@ -58,21 +61,21 @@
     </div>
   </div> -->
 
-<script src="lib/hammer/hammer.js"></script>
-<script src="lib/moment/moment.js"></script>
-<script src="lib/jquery/jquery.js"></script>
-<script src="lib/jquery/jquery-ui.js"></script>
-<script src="lib/bootbox/bootbox.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/angular/angular.min.js"></script>
-<script src="lib/angular/angular-animate.min.js"></script>
-<script src="lib/angular/angular-sanitize.min.js"></script>
-<script src="lib/angular/angular-route.min.js"></script>
-<script src="lib/angularUiRouter/angular-ui-router.min.js"></script>
-<script src="lib/safeApply/Scope.SafeApply.min.js"></script>
-<script src="app.js"></script>
-<script src="kingsbury.js"></script>
-<script src="earl.js"></script>
-<script src="robins.js"></script>
+  <script src="lib/hammer/hammer.js"></script>
+  <script src="lib/moment/moment.js"></script>
+  <script src="lib/jquery/jquery.js"></script>
+  <script src="lib/jquery/jquery-ui.js"></script>
+  <script src="lib/bootbox/bootbox.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular/angular-animate.min.js"></script>
+  <script src="lib/angular/angular-sanitize.min.js"></script>
+  <script src="lib/angular/angular-route.min.js"></script>
+  <script src="lib/angularUiRouter/angular-ui-router.min.js"></script>
+  <script src="lib/safeApply/Scope.SafeApply.min.js"></script>
+  <script src="app.js"></script>
+  <script src="kingsbury.js"></script>
+  <script src="earl.js"></script>
+  <script src="robins.js"></script>
 </body>
 </html>
