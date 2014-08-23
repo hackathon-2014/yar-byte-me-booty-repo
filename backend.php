@@ -131,18 +131,18 @@ if (isset($payloadDecoded['GetUserMovies'])) {
   $response['GetUserMovies'] = count($movies) > 0 ? $movies : false;
 }
 
-if (isset($payloadDecoded['AddMovies'])) {
+if (isset($payloadDecoded['AddMovie'])) {
 
-  $addMovie = $payloadDecoded['AddMovies'];
+  $addMovie = $payloadDecoded['AddMovie'];
   
-  $stmt = $db->prepare('INSERT INTO movies (info, medium, condition, user_id) VALUES (:info, :medium, :condition, :user_id)');
+  $stmt = $db->prepare('INSERT INTO movies (info, medium, condition, user_id) VALUES (:info, :medium, :condition, :userId)');
   $stmt->bindValue(':info', $addMovie['info'], SQLITE3_TEXT);
   $stmt->bindValue(':medium', $addMovie['medium'], SQLITE3_TEXT);
   $stmt->bindValue(':condition', $addMovie['condition'], SQLITE3_TEXT);
   $stmt->bindValue(':userId', $addMovie['userId'], SQLITE3_INTEGER);
   $r = $stmt->execute();
   
-  $response['AddMovies'] = $r === FALSE ? false : $db->lastInsertRowID();
+  $response['AddMovie'] = $r === FALSE ? false : $db->lastInsertRowID();
 }
 
 //-----------------------------------------------
