@@ -6,7 +6,11 @@ earlMod.service('tmdbService', function($http) {
   } 
 });
 
-earlMod.controller('InventoryAddController', function($scope, $http, tmdbService, inventoryService) {
+earlMod.controller('InventoryController', function($scope, $stateParams, inventoryService) {
+  
+});
+
+earlMod.controller('InventoryAddController', function($scope, $http, $state, tmdbService, inventoryService) {
   
   // Change this to test how the interface handles delays
   var artificalDelay = 0;
@@ -39,7 +43,6 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
 
         $scope.results = data.results;
         for (var i = 0, j = $scope.results.length; i < j; i++) {
-          console.log(angular.toJson($scope.results[i]));
           if ($scope.results[i].poster_path) {
             $scope.results[i].poster_path = 'https://image.tmdb.org/t/p/w92' + $scope.results[i].poster_path;
           }
@@ -69,17 +72,36 @@ earlMod.controller('InventoryAddController', function($scope, $http, tmdbService
   };
   
   $scope.unselect = function() {
-    $scope.selected = ''; 
+    $scope.selected = $scope.addError = $scope.addSuccess = ''; 
   }
   
   $scope.add = function(condition, medium) {
+    
     $scope.addError = '';
     if (!condition) {
+      
       $scope.addError = 'Condition is required';
+      
     } else if (!medium) {
+      
       $scope.addError = 'Medium is required'; 
+      
     } else {
-      inventoryService.add($scope.selected.id, angular.toJson($scope.selected));
+      
+      inventoryService.AddMovie({
+        userId: $scope.authUser.id, 
+        info: angular.toJson($scope.selected),
+        condition: condition,
+        medium: medium
+      }).then(function(data) {
+        $scope.addSuccess = data;
+      }, function(error) {
+        console.log(error);
+        $scope.addError = 'Error adding to My Movies';
+      }).finally(function() {
+        $scope.$safeApply();
+      });
+      
     }
   }
   
