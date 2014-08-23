@@ -15,7 +15,8 @@ bootyApp.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('login', {
       templateUrl: 'partials/login.html',
-      url: '/login'
+      url: '/login',
+      controller: 'loginController'
   });
 
   $stateProvider.state('user', {

@@ -40,12 +40,13 @@
   
   <div ng-controller="backendTests">
     <h2>Backend Tests</h2>
-    <div class="well">Current user: {{currentUser}}</div>
+    <div class="well">Authenticated user: {{authUser}}</div>
     <div class="well">
+      <h3>Find User by ID</h3>
       User ID:
       <input ng-model="userId">
       <button ng-click="findUser(userId)">Find</button>
-      Found user: {{foundUser}}
+      <br>Found user: {{foundUser}}
     </div>
   </div>
 

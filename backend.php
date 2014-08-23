@@ -48,6 +48,18 @@ if (isset($payloadDecoded['GetUser'])) {
   $response['GetUser'] = $r->fetchArray();
 }
 
+if (isset($payloadDecoded['AuthUser'])) {
+
+  $authUser = $payloadDecoded['AuthUser'];
+  
+  $stmt = $db->prepare('SELECT * FROM users WHERE email=:email AND pass=:pass');
+  $stmt->bindValue(':email', $authUser['email'], SQLITE3_TEXT);
+  $stmt->bindValue(':pass', $authUser['pass'], SQLITE3_TEXT);
+  $r = $stmt->execute();
+  
+  $response['AuthUser'] = $r->fetchArray();
+}
+
 if (isset($payloadDecoded['AddUser'])) {
 
   $newUser = $payloadDecoded['AddUser'];
