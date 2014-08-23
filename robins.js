@@ -18,16 +18,26 @@ robinsMod.controller('homeCtrl', function($scope){
 
 });
 
-robinsMod.controller('userCtrl', function($scope, userService, $stateParams){
+robinsMod.controller('userCtrl', function($scope, userService, $stateParams, inventoryService){
 
   $scope.user = undefined;
-
+  $scope.movies = [{},{},{},{},{},{},{}];
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     userService.GetUser($stateParams.userId).then(function(user){
       $scope.user = user;
+      $scope.user.followers = 10;
+      $scope.user.rating = '80%';
       $scope.$safeApply();
+//      inventoryService.GetUserInventory(user).then(function(movies) {
+//        $scope.movies = movies;
+//        $scope.$safeApply();
+//      });
     });
+
   });
+
+  $scope.getUsersMovies = function(){
+  };
 
 
 });
