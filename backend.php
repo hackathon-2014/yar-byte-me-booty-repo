@@ -29,7 +29,7 @@ else {
 //-----------------------------------------------
 
 // unlink('sqlite.db');
-$db = new SQLite3('sqlite.db');
+$db = new SQLite3('../yar-db/sqlite.db');
 
 $response = [];
 

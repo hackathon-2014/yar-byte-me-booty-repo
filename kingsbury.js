@@ -2,7 +2,7 @@ var kingsburyMod = angular.module('kingsburyMod', ['bootyApp']);
 
 kingsburyMod.run(function(userService) {
 
-  userService.getUser(1).then(function(user) {
+  userService.GetUser(1).then(function(user) {
     console.log(user);
   });
 
