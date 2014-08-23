@@ -42,33 +42,34 @@
 */
 
 body {
-    margin-top: 51px !important;
+  margin-top: 51px !important;
+  background-color: #313131;
 }
 
-ul.movies-list {
-  background-color: whitesmoke;
-  list-style: none;
-  border-radius: 8px;
-  padding: 0;
+p {
   color: white;
 }
-ul.movies-list p {
-  font-size: 20px;
+
+.user-container {
+  padding: 10px;
+}
+
+.user {
+  font-size: 24px;
   line-height: 1em;
+  padding: 0;
+
 }
 
-p.hero {
-  font-size: 32px;
-  text-decoration: underline;
+.user-age {
+  font-size: 20px;
+  margin: 0;
+}
+.user-location {
+  font-size: 20px;
+  margin: 0;
 }
 
-ul.movies-list li {
+.user-icon {
   width: 100%;
-  padding: 12px;
-  background-color: #000000;
-}
-
-ul.movies-list li img {
-  width: 100%;
-  border: 1px solid whitesmoke;
 }

@@ -22,6 +22,7 @@ robinsMod.controller('userCtrl', function($scope){
   $scope.cUser = {
     name: 'David Robins',
     age: 25,
+    icon: 'assets/avatar-icon.jpg',
     location: 'Charleston, SC',
     inventory: [{
       title: 'Jurassic Park',

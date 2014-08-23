@@ -1,8 +1,14 @@
 <div ng-controller="userCtrl">
   <div class="row">
-    <div class="col-sm-2">
-      <img class="img-rounded" src="" />
+    <div class="col-xs-2">
+      <img class="user-icon img-rounded" src="{{cUser.icon}}" />
+    </div>
+    <div class="col-xs-10">
+      <div class="user-container">
+        <p class="user">{{cUser.name}}</p>
+        <p class="user-age">Age: {{cUser.age}}</p>
+        <p class="user-location">Location: {{cUser.location}}</p>
+      </div>
     </div>
   </div>
-  {{cUser.name}}
 </div>
