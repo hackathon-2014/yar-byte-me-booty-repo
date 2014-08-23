@@ -6,23 +6,6 @@ earlMod.service('tmdbService', function($http) {
   } 
 });
 
-/* NOPE
-earlMod.service('omdbService', function($http) {
-  this.byTitle = function(title) {
-    return $http.get('//www.omdbapi.com/?s=' + title);
-  }
-  this.byId = function(id) {
-    return $http.get('//omdbapi.api.com/?i=' + id); 
-  }
-});
-
-earlMod.service('imdbService', function($http) {
-  this.byId = function(id) {
-    return $http.get('proxy/?mode=raw&url=' + encodeURI('' + id));
-  }
-});
-*/
-
 earlMod.controller('InventoryAddController', function($scope, $http, tmdbService) {
   
   var error = function() {
