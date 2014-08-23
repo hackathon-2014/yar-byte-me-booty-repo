@@ -12,4 +12,5 @@
   <button type="submit" class="btn btn-default" ng-click="AddUser(newUser)">
     Submit <span class="fa fa-cog fa-spin" ng-show="processing"></span>
   </button>
+  <div class="alert alert-danger" ng-if="errors.general">{{errors.general}}
 </form>

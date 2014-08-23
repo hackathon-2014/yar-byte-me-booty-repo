@@ -16,8 +16,8 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     $http.post(backendUrl, {
       'GetUser': id
     }).then(function(response) {
-      if (response.data.id) {
-        deferred.resolve(response.data);
+      if (response.data.GetUser) {
+        deferred.resolve(response.data.GetUser);
       }
       else {
         deferred.reject('Didn\'t get expected response');
@@ -28,7 +28,6 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     return deferred.promise;
   }
 
-<<<<<<< HEAD
   this.CheckEmail = function(email) {
   
     var deferred = $q.defer();
@@ -67,8 +66,6 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     return deferred.promise;
   }
 
-=======
->>>>>>> origin/master
   this.AddUser = function(email, pass) {
     
     var deferred = $q.defer();
@@ -87,26 +84,6 @@ kingsburyMod.service('userService', function($log, $http, $q) {
     });
     
     return deferred.promise;
-  }
-  
-  this.GetUserMovies = function(userId) {
-  
-    var deferred = $q.defer();
- 
-    $http.post(backendUrl, {
-      'userId': userId
-    }).then(function(response) {
-      if (response.data.GetUserMovies) {
-        deferred.resolve(response.data.GetUserMovies);
-      }
-      else {
-        deferred.reject('Failed to get movies');
-        $log.error('userService (GetUserMovies): Failed to get movies', userId);
-      }
-    });
-    
-    return deferred.promise;
-
   }
 
 });
@@ -146,17 +123,75 @@ kingsburyMod.controller('signUpController', function($scope, userService, $state
     if (!user.pass) {
       $scope.errors.pass = 'Please enter a password.';
     }
-    if ($scope.errors.length > 0) {
+    if ($scope.errors.email || $scope.errors.pass ) {
+     return false;
+    }
+    
+    $scope.processing = true;
+    
+    userService.CheckEmail(user.email).then(function(result) {
+    
+      if (!result) {
+     
+        userService.AddUser(user.email, user.pass).then(function(id) {
+          $scope.processing = false;
+          $state.go('user', {'userId': id});
+        }, function(reason) {
+          $scope.processing = false;
+          $scope.errors.general = 'Failed to add user.';
+          $scope.$safeApply();
+        });
+      }
+      else {
+        $scope.processing = false;
+        $scope.errors.general = 'There is already an account with this email';
+      }
+      
+   }, function(reason) {
+      $scope.processing = false;
+      $scope.errors.general = 'Failed to add user.';
+      $scope.$safeApply();
+    });
+   
+    
+  }
+
+
+});
+
+kingsburyMod.controller('loginController', function($scope, userService, $state, $rootScope) {
+
+  $scope.errors = {};
+
+  $scope.newUser = {
+    email:'',
+    pass:''
+  };
+
+  $scope.Login = function(user) {
+  
+    $scope.errors = {};
+  
+    if (!user.email) {
+      $scope.errors.email = 'Please enter a valid email address.';
+    }
+    if (!user.pass) {
+      $scope.errors.pass = 'Please enter a password.';
+    }
+    if ($scope.errors.email || $scope.errors.pass ) {
      return false;
     }
     
     $scope.processing = true;
    
-    userService.AddUser(user.email, user.pass).then(function(id) {
+    userService.AuthUser(user.email, user.pass).then(function(user) {
       $scope.processing = false;
-      $state.go('user', {'userId': id});
+      $rootScope.authUser = user;
+      localStorage.setItem('authUser', angular.toJson(user));
+      $state.go('user', {'userId': user.id});
     }, function(reason) {
-      $scope.errors.pass = 'Failed to add user.';
+      $scope.processing = false;
+      $scope.errors.general = 'Failed to authenticate.';
       $scope.$safeApply();
     });
     

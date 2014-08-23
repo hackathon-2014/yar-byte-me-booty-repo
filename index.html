@@ -29,6 +29,7 @@
           <li ng-class="{'active': $state.includes('user-inventory')}"><a ui-sref="user-inventory">My Movies</a></li>
           <li ng-class="{'active': $state.includes('search')}"><a ui-sref="search">Search</a></li>
           <li ng-class="{'active': $state.includes('request')}"><a ui-sref="request">Request</a></li>
+          <li><a href="" ng-click="logout()">Logout</a></li>
         </ul>
       </div>
     </div>
@@ -38,12 +39,13 @@
 
   <div ng-controller="backendTests">
     <h2>Backend Tests</h2>
-    <div class="well">Current user: {{currentUser}}</div>
+    <div class="well">Authenticated user: {{authUser}}</div>
     <div class="well">
+      <h3>Find User by ID</h3>
       User ID:
       <input ng-model="userId">
       <button ng-click="findUser(userId)">Find</button>
-      Found user: {{foundUser}}
+      <br>Found user: {{foundUser}}
     </div>
   </div>
 
