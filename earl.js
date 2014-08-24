@@ -6,8 +6,19 @@ earlMod.service('tmdbService', function($http) {
   } 
 });
 
+earlMod.controller('HomeController', function($scope) {
+  $scope.featured = [
+    { url: 'assets/featured-movie-ferris-bueller.jpg' },
+    { url: 'assets/featured-movie-ghostbusters.jpg' },
+    { url: 'assets/featured-movie-star-wars-holiday-special.jpg' },
+    { url: 'assets/featured-movie-the-goonies.jpg' },
+    { url: 'assets/feature-movie-alf.jpg' },
+    { url: 'assets/feature-movie-clambake.jpg' }
+  ];
+});
+
 earlMod.controller('InventoryController', function($scope, $stateParams, inventoryService) {
-  inventoryService.GetUserInventory($scope.authUser).then(function(data) {
+  inventoryService.GetUserInventory($stateParams.userId).then(function(data) {
     console.log(data);
     $scope.inventory = data;
   }, function(error) {
