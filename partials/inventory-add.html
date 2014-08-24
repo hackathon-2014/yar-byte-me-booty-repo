@@ -2,12 +2,16 @@
 
   <h2>Add To My Movies</h2>
   
-  <div class="form-inline">
+  <form>
     <div class="form-group">
-      <input class="form-control" ng-model="title" ng-enter="byTitle(title);" placeholder="Search By Title">      
-      <button class="btn btn-default" ng-click="byTitle(title);">Search</button>
-    </div>
-  </div>
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="title" ng-enter="byTitle(title);" placeholder="Search By Title">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" ng-click="byTitle(title);">Search</button>
+        </span>
+      </div>
+    </div>    
+  </form>
 
   <p class="alert alert-danger" ng-show="error">{{error}}</p>
   <p class="alert alert-warning" ng-if="results.length == 0">No results found.</p>
