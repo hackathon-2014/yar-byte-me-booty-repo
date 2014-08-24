@@ -36,7 +36,7 @@ else {
 // unlink('sqlite.db');
 $db = new SQLite3('sqlite.db');
 
-$response = [];
+$response = array();
 
 //-----------------------------------------------
 // METHODS
