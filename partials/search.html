@@ -10,6 +10,9 @@
           <button class="btn btn-primary" type="submit" ng-click="searchInventory(searchString)">Find It!</button>
         </span>
       </div>
+      <div class="input-group" style="margin-top: 10px; width: 100%;">
+        <button class="btn btn-success" style="width: 100%;" type="button" ng-click="searchInventory(' ')">Get all movies!</button>
+      </div>
     </div>
 
   </form>
@@ -30,7 +33,7 @@
       <button class="btn btn-primary btn-request-ship" ng-click="requestShip()">Request Ship</button><button class="btn btn-primary btn-request-meetup" ng-click="requestMeetup()">Request Meetup</button>
     </div>
   </div>
-  
+  <div ng-if="invSearchResults == false" class="alert alert-warning" role="alert">Sorry! No movies have been found.<br>A wish list feature is coming soon!</div>
   
 <!--   <ul style="color:white">
     <li ng-repeat="movie in invSearchResults">{{movie}}</li>

@@ -285,15 +285,9 @@ kingsburyMod.controller('searchController', function($scope, $state, userService
 
   $scope.errors = {};
 
-  $scope.user = {
-    name: 'David Kingsbury',
-    id: 1
-  }
-  
   $scope.searchInventory = function(searchString) {
     inventoryService.Search(searchString).then(
       function(movies) {
-
         for(var i = 0; i < movies.length; i++){
           movies[i].user.hash = md5(movies[i].user.email);
         }
