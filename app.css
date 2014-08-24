@@ -46,10 +46,12 @@ html, body {
 }
 
 body {
+  background-attachment: fixed;
   background-color: #313131;
   background-image: url(assets/home-bg-00.jpg);
   background-repeat: no-repeat;
   background-size: cover;  
+  min-height: 100%;
 }
 
 
