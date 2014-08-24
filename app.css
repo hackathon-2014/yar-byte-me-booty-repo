@@ -101,3 +101,10 @@ label {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+.media {
+  margin: 0 -15px;
+  padding: 10px 15px;
+}
+.media:nth-child(even){
+  background-color: #262626;
+}
