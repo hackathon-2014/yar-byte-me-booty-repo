@@ -41,9 +41,16 @@
 }
 */
 
+html, body {
+  height: 100%;
+}
+
 body {
-  margin-top: 51px !important;
   background-color: #313131;
+  background-image: url(assets/home-bg-00.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;  
+  margin-top: 51px !important;
 }
 
 
@@ -51,8 +58,41 @@ h1, h2, h3, h4, h5, h6, p {
   color: white;
 }
 
+.jumbotron {
+  background: #000;
+  background: rgba(0, 0, 0, .2);
+}
+
 .user-container {
   margin: 10px 0;
+}
+
+.jumbotron h1 {
+  color: #FF217B;
+}
+
+.feature {
+  display: block;
+  position: relative;
+  text-align: center;
+}
+
+.feature i {
+  background: #000;
+  background: rgba(0, 0, 0, .5);
+  color: #FF217B;
+  display: none;
+  height: 100%;
+  left: 0;
+  padding-top: 50%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.feature:hover i,
+.feature:focus i {
+  display: block;
 }
 
 .user {

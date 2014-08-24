@@ -1,19 +1,25 @@
-
-  <h2>Search for a Vintage Movie!</h2>
-
-  <form role="form">
-
-    <div class="form-group">
-      <div class="input-group">
-        <input class="form-control" type="text" placeholder="Movie Title" ng-model="searchString">
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="submit" ng-click="searchInventory(searchString)">Find It!</button>
-        </span>
-      </div>
+<div ng-controller="HomeController">
+  <div class="jumbotron">
+    <div class="col-sm-5 pull-right hidden-xs">
+      <img src="assets/vhs-spinning.gif" class="img-responsive" />
     </div>
+    <h1>VH{YE}S</h1>
+    <h2>Vintage Movie Sharing</h2>
+    <p>Be a part of the latest craze - renting vintage movies.  We have all the hotest formats including Betamax and LaserDisc.</p>
+    <p><a ui-sref="signUp" class="btn btn-primary btn-lg">Sign Up Now to Start Sharing!</a>&nbsp;&nbsp;<a ui-sref="login" class="btn btn-default btn-lg">Already Signed Up?</a></p>
+  </div>
 
-  </form>
-  
-  <button class="btn btn-default" ng-click="searchInventory('{')">... or List Everything Available!</button>
+
+  <h3>Featured Movies</h3>
+
+  <div class="row">
+    <div class="col-xs-2" ng-repeat="movie in featured">
+      <a href="#" class="feature">
+        <img ng-src="{{movie.url}}" alt="" class="img-responsive" />
+        <i class="fa fa-plus fa-4x"></i>
+      </a>
+    </div>
+  </div>
+</div>
 
 
