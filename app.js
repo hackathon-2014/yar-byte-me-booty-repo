@@ -9,7 +9,7 @@ bootyApp.config(function($stateProvider, $urlRouterProvider, $animateProvider) {
 
   $animateProvider.classNameFilter(/^((?!(fa-spin)).)*$/);
 
-  //$urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.when('', '/home');
 
   $stateProvider.state('home', {
       templateUrl: 'partials/home.html',
