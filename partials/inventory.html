@@ -5,6 +5,7 @@
   <h2>My Movies</h2>
   
   <div ng-hide="inventory"><i class="fa fa-spin fa-spinner fa-2x"></i></div>
+  <div ng-show="error" class="alert alert-info">{{error}}</div>
   
   <div ng-show="inventory">
     <div ng-repeat="movie in inventory" class="media">
