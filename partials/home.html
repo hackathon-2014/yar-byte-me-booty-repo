@@ -6,7 +6,13 @@
     <h1>VH{YE}S</h1>
     <h2>Vintage Movie Sharing</h2>
     <p>Be a part of the latest craze - renting vintage movies.  We have all the hotest formats including Betamax and LaserDisc.</p>
-    <p><a ui-sref="signUp" class="btn btn-primary btn-lg">Sign Up Now to Start Sharing!</a>&nbsp;&nbsp;<a ui-sref="login" class="btn btn-default btn-lg">Already Signed Up?</a></p>
+    <p ng-hide="authUser.id">
+      <a ui-sref="signUp" class="btn btn-primary btn-lg" style="margin-top:10px">Sign Up Now to Start Sharing!</a>
+      <a ui-sref="login" class="btn btn-default btn-lg" style="margin-top:10px">Already Signed Up?</a>
+    </p>
+    <p ng-show="authUser.id">
+      <a ui-sref="search" class="btn btn-primary btn-lg" style="margin-top:10px">Search!</a>
+    </p>
   </div>
 
 
