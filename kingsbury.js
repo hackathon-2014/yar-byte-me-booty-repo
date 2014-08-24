@@ -281,14 +281,21 @@ kingsburyMod.controller('loginController', function($scope, userService, $state,
   }
 });
 
-kingsburyMod.controller('searchController', function($scope, $state, inventoryService, $rootScope) {
+kingsburyMod.controller('searchController', function($scope, $state, userService, inventoryService, $rootScope) {
 
   $scope.errors = {};
+
+  $scope.user = {
+    name: 'David Kingsbury',
+    id: 1
+  }
   
   $scope.searchInventory = function(searchString) {
     inventoryService.Search(searchString).then(
       function(movies) {
+
         $rootScope.invSearchResults = movies;
+
         $state.go('search')
       },
       function() {
@@ -296,6 +303,11 @@ kingsburyMod.controller('searchController', function($scope, $state, inventorySe
       }
     );
   };
+
+  $scope.goTo = function(location){
+    $scope.$state.go(location, {userId: $scope.user.id});
+  }
+
 });
 
 
