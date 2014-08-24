@@ -294,6 +294,10 @@ kingsburyMod.controller('searchController', function($scope, $state, userService
     inventoryService.Search(searchString).then(
       function(movies) {
 
+        for(var i = 0; i < movies.length; i++){
+          movies[i].user.hash = md5(movies[i].user.email);
+        }
+
         $rootScope.invSearchResults = movies;
 
         $state.go('search')
@@ -304,8 +308,8 @@ kingsburyMod.controller('searchController', function($scope, $state, userService
     );
   };
 
-  $scope.goTo = function(location){
-    $scope.$state.go(location, {userId: $scope.user.id});
+  $scope.goTo = function(location, id){
+    $scope.$state.go(location, {userId: id});
   }
 
 });

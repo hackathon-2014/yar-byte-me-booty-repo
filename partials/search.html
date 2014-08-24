@@ -22,7 +22,7 @@
     <div class="media-body">
       <h4 class="media-heading">{{result.info.title}}</h4>
       <p>Released: <em>{{result.info.release_date}}</em></p>
-      <p><img ng-src="http://www.gravatar.com/avatar/asdfasdfasdfasdf" style="width: 40px;" /> <span ng-click="goTo('user')" style="font-size: 20px; vertical-align: middle">David Kingsbury</span></p>
+      <p><img ng-src="http://www.gravatar.com/avatar/{{result.user.hash}}" style="width: 40px;" /> <span ng-click="goTo('user', result.user.id)" style="font-size: 20px; vertical-align: middle">{{result.user.first}} {{result.user.last}}</span></p>
       <p>Condition: <em>{{result.condition}}</em></p>
       <p>Medium: <em>{{result.medium}}</em></p>
     </div>
