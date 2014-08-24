@@ -302,6 +302,9 @@ kingsburyMod.controller('searchController', function($scope, $state, userService
     );
   };
 
+  $scope.requestSuccess = false;
+  $scope.requestMeetup = false;
+
   $scope.goTo = function(location, id){
     $scope.$state.go(location, {userId: id});
   }

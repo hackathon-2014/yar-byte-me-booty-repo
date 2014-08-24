@@ -30,7 +30,9 @@
       <p>Medium: <em>{{result.medium}}</em></p>
     </div>
     <div class="">
-      <button class="btn btn-primary btn-request-ship" ng-click="requestShip()">Request Ship</button><button class="btn btn-primary btn-request-meetup" ng-click="requestMeetup()">Request Meetup</button>
+      <button class="btn btn-primary btn-request-ship" ng-click="requestSuccess = true; requestMeetup = false">Request Ship</button><button class="btn btn-primary btn-request-meetup" ng-click="requestMeetup = !requestMeetup; requestSuccess = false">Request Meetup</button>
+      <div ng-if="requestSuccess" style="margin-top: 10px; margin-bottom: 0;" class="alert alert-success">Congrats! This title is being requested to ship to you!</div>
+      <div ng-if="requestMeetup" style="margin-top: 10px; margin-bottom: 0;" class="alert alert-success">Congrats! Your request to meetup for this title has been sent!</div>
     </div>
   </div>
   <div ng-if="invSearchResults == false" class="alert alert-warning" role="alert">Sorry! No movies have been found.<br>A wish list feature is coming soon!</div>
