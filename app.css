@@ -46,10 +46,12 @@ html, body {
 }
 
 body {
+  background-attachment: fixed;
   background-color: #313131;
   background-image: url(assets/home-bg-00.jpg);
   background-repeat: no-repeat;
   background-size: cover;  
+  min-height: 100%;
 }
 
 
@@ -139,4 +141,11 @@ label {
 .btn-request-meetup {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+.media {
+  margin: 0 -15px;
+  padding: 10px 15px;
+}
+.media:nth-child(even){
+  background-color: #262626;
 }

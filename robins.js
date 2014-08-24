@@ -29,6 +29,9 @@ robinsMod.controller('userCtrl', function($scope, userService, $stateParams, inv
       $scope.user.rating = '80%';
       $scope.user.favMovie = 'Jurassic Park';
       $scope.user.icon = md5($scope.user.email);
+      inventoryService.GetUserInventory($scope.user).then(function(data){
+        $scope.movies = data;
+      });
       $scope.$safeApply();
 //      inventoryService.GetUserInventory(user).then(function(movies) {
 //        $scope.movies = movies;
