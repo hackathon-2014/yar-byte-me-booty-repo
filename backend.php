@@ -1,9 +1,5 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST'); 
-header("Access-Control-Allow-Headers", "Content-Type");
-
 // DEBUG SQLITE
 
 // $dbname='base';
@@ -36,7 +32,7 @@ else {
 // unlink('sqlite.db');
 $db = new SQLite3('sqlite.db');
 
-$response = [];
+$response = array();
 
 //-----------------------------------------------
 // METHODS
