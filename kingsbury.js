@@ -91,19 +91,19 @@ kingsburyMod.service('userService', function($log, $http, $q) {
 
 kingsburyMod.service('inventoryService', function($log, $q, $http) {
 
-  this.GetUserInventory = function(user) {
+  this.GetUserInventory = function(userId) {
   
    var deferred = $q.defer();
  
     $http.post(kingsburyMod.backendUrl, {
-      'GetUserMovies': {'userId':user.id}
+      'GetUserMovies': {'userId':userId}
     }).then(function(response) {
-      if (response.data.GetUserMovies) {
+      if (response.data.hasOwnProperty('GetUserMovies')) {
         deferred.resolve(response.data.GetUserMovies);
       }
       else {
         deferred.reject('Failed to get movies');
-        $log.error('inventoryService (GetUserMovies): Failed to get movies', user);
+        $log.error('inventoryService (GetUserMovies): Failed to get movies', userId);
       }
     });
     
@@ -281,14 +281,21 @@ kingsburyMod.controller('loginController', function($scope, userService, $state,
   }
 });
 
-kingsburyMod.controller('searchController', function($scope, $state, inventoryService, $rootScope) {
+kingsburyMod.controller('searchController', function($scope, $state, userService, inventoryService, $rootScope) {
 
   $scope.errors = {};
+
+  $scope.user = {
+    name: 'David Kingsbury',
+    id: 1
+  }
   
   $scope.searchInventory = function(searchString) {
     inventoryService.Search(searchString).then(
       function(movies) {
+
         $rootScope.invSearchResults = movies;
+
         $state.go('search')
       },
       function() {
@@ -296,6 +303,11 @@ kingsburyMod.controller('searchController', function($scope, $state, inventorySe
       }
     );
   };
+
+  $scope.goTo = function(location){
+    $scope.$state.go(location, {userId: $scope.user.id});
+  }
+
 });
 
 

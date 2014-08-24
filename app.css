@@ -63,6 +63,10 @@ h1, h2, h3, h4, h5, h6, p {
   background: rgba(0, 0, 0, .2);
 }
 
+label {
+  color:white;
+}
+
 .user-container {
   margin: 10px 0;
 }
@@ -126,4 +130,14 @@ h1, h2, h3, h4, h5, h6, p {
 
 .movie-block i:not(:last-child) {
   margin-right: 5px;
+}
+
+.btn-request-ship {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-request-meetup {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
