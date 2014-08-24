@@ -22,7 +22,7 @@
       </button>
       <div class="collapse navbar-collapse nav-header-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li ng-show="authUser.id" class="navbar-text">Hi, {{authUser.first}}!</li>
+          <li ng-show="authUser.id"><div class="navbar-text" style="margin-left: 10px;">Hi, {{authUser.first}}!</div></li>
           <li ng-class="{'active': $state.includes('home')}"><a ui-sref="home">Home</a></li>
           <li ng-show="authUser.id" ng-class="{'active': $state.includes('search')}"><a ui-sref="search">Search</a></li>
           <li ng-hide="authUser.id" ng-class="{'active': $state.includes('signUp')}"><a ui-sref="signUp">Sign Up</a></li>
