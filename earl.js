@@ -19,7 +19,6 @@ earlMod.controller('HomeController', function($scope) {
 
 earlMod.controller('InventoryController', function($scope, $stateParams, inventoryService) {
   inventoryService.GetUserInventory($stateParams.userId).then(function(data) {
-    console.log(data);
     $scope.inventory = data;
   }, function(error) {
     $scope.error = 'Error loading inventory';
@@ -30,13 +29,8 @@ earlMod.controller('InventoryController', function($scope, $stateParams, invento
   $scope.confirm = function(index) {
     bootbox.confirm('Are you sure?', function(confirmed) {
       if (confirmed) {
-        /*
-        inventoryService.RemoveMovie(
-          $scope.authUser,
-          $scope.inventory[index].id
-        );
-        */
-        alert('TODO: Implement InventoryService.RemoveMovie()');
+        $scope.error = 'Removing from My Movies currently not implemented.  :-)';
+        $scope.$safeApply();
       }
     });
   }
