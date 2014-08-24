@@ -1,4 +1,4 @@
-VH YESSSS! Presented by YAR!!!! Byte Our Booty!
+VH YESSSS! Presented by YAR, Byte Me Booty!
 ======================
 
 To Deploy:
